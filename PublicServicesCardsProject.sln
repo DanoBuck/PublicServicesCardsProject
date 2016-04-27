@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicServicesCardsProject", "PublicServicesCardsProject\PublicServicesCardsProject.csproj", "{024B2CBA-BA2C-4321-83FA-BDE9A6AF954E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicServicesCardsProject.Tests", "PublicServicesCardsProject.Tests\PublicServicesCardsProject.Tests.csproj", "{A08C6DDA-139C-4908-B57A-B620602EE4DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{024B2CBA-BA2C-4321-83FA-BDE9A6AF954E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{024B2CBA-BA2C-4321-83FA-BDE9A6AF954E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{024B2CBA-BA2C-4321-83FA-BDE9A6AF954E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{024B2CBA-BA2C-4321-83FA-BDE9A6AF954E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A08C6DDA-139C-4908-B57A-B620602EE4DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A08C6DDA-139C-4908-B57A-B620602EE4DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A08C6DDA-139C-4908-B57A-B620602EE4DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A08C6DDA-139C-4908-B57A-B620602EE4DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
