@@ -4935,15 +4935,19 @@ a.list-group-item.active > .badge,
   line-height: 2.1428571435;
   color: inherit;
   background-color: #eeeeee;
+  background: url('../../Images/dsp.png') no-repeat center center;
+  background-size: 75% 100%;
 }
 
 .jumbotron h1 {
   line-height: 1;
-  color: inherit;
+  text-align: left;
+  color:transparent;
 }
 
 .jumbotron p {
   line-height: 1.4;
+  text-align: right;
 }
 
 .container .jumbotron {
@@ -4961,6 +4965,8 @@ a.list-group-item.active > .badge,
   }
   .jumbotron h1 {
     font-size: 63px;
+    color: cornsilk;
+    text-align: center;
   }
 }
 
