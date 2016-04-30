@@ -13,7 +13,7 @@ namespace PublicServicesCardsProject.DataAccess
     {
         // Same As The Connection String In Web Config
         public PSCContext() : base ("DefaultConnection")
-        {   
+        {
         }
 
         public DbSet<Person> People { get; set; }
@@ -25,7 +25,7 @@ namespace PublicServicesCardsProject.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            Database.SetInitializer<PSCContext>(new DropCreateDatabaseIfModelChanges<PSCContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<PSCContext>());
         }
     }
 }
