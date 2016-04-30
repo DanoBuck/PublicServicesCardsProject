@@ -30,7 +30,7 @@ namespace PublicServicesCardsProject.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            var staff = new List<Staff>()
+            var staff = new List<Staff>
             {
                new Staff
                {
@@ -108,7 +108,7 @@ namespace PublicServicesCardsProject.Migrations
                     StaffId = 1, // Daniel Buckley
                     CustomerId = 3, // Adam Buckley,
                     DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = DateTime.Now.AddHours(2)
+                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
                 },
                 new Appointment
                 {
@@ -116,9 +116,11 @@ namespace PublicServicesCardsProject.Migrations
                     StaffId = 2, // Cecil
                     CustomerId = 4, // Amanda Chapington,
                     DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = DateTime.Now.AddHours(4)
+                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
                 }
             };
+            appointments.ForEach(a => context.Appointments.AddOrUpdate(a));
+            context.SaveChanges();
         }
     }
 }
