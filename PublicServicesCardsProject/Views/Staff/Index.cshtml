@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<PublicServicesCardsProject.Models.Staff>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Staff";
 }
 
-<h2>Index</h2>
+<h2>All Staff</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,25 +12,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            PPSN
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+            Date Of Birth
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
+            Age
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PPSN)
+            Email Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Salary)
+            Salary
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DeskNumber)
+            Desk Number
         </th>
         <th></th>
     </tr>
@@ -38,19 +38,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.PPSN)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateOfBirth)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EmailAddress)
+            @Html.DisplayFor(modelItem => item.Age)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PPSN)
+            @Html.DisplayFor(modelItem => item.EmailAddress)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Salary)

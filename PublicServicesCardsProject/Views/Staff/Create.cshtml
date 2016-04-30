@@ -1,10 +1,10 @@
 ﻿@model PublicServicesCardsProject.Models.Staff
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Staff Member";
 }
 
-<h2>Create</h2>
+<h2>Create Staff Member</h2>
 
 
 @using (Html.BeginForm()) 
@@ -15,6 +15,14 @@
         <h4>Staff</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.PPSN, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PPSN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PPSN, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -44,14 +52,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PPSN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PPSN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PPSN, "", new { @class = "text-danger" })
             </div>
         </div>
 
