@@ -31,6 +31,13 @@ namespace PublicServicesCardsProject.Migrations
                 c => new
                     {
                         BuildingId = c.Int(nullable: false, identity: true),
+                        SafeOffice = c.String(),
+                        AddressLine1 = c.String(),
+                        AddressLine2 = c.String(),
+                        AddressLine3 = c.String(),
+                        AddressLine4 = c.String(),
+                        County = c.String(),
+                        Phone = c.String(),
                     })
                 .PrimaryKey(t => t.BuildingId);
             
