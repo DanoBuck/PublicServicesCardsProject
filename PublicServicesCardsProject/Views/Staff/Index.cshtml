@@ -59,9 +59,9 @@
             @Html.DisplayFor(modelItem => item.DeskNumber)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PersonId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PersonId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PersonId })
+            @Html.ActionLink(" Edit", "Edit", new { id=item.PersonId }, htmlAttributes: new { @class = " glyphicon glyphicon-edit " }) |
+            @Html.ActionLink(" Details", "Details", new { id=item.PersonId }, htmlAttributes: new { @class = " glyphicon glyphicon-info-sign " }) |
+            @Html.ActionLink(" Delete", "Delete", new { id=item.PersonId }, htmlAttributes: new { @class = " glyphicon glyphicon-remove " })
         </td>
     </tr>
 }
