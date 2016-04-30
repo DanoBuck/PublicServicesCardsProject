@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PublicServicesCardsProject.DataAccess
 {
-    class PSCContext : DbContext
+    public class PSCContext : DbContext
     {
         // Same As The Connection String In Web Config
         public PSCContext() : base ("DefaultConnection")
@@ -20,7 +20,7 @@ namespace PublicServicesCardsProject.DataAccess
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Staff> Staff { get; set; }
-        public DbSet<Appointment> Appontments { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
