@@ -11,6 +11,11 @@ namespace PublicServicesCardsProject.DataAccess
 {
     class PSCContext : DbContext
     {
+        // Same As The Connection String In Web Config
+        public PSCContext() : base ("DefaultConnection")
+        {   
+        }
+
         public DbSet<Person> People { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Customer> Customers { get; set; }
