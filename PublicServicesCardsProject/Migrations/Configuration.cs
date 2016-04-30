@@ -1,5 +1,6 @@
 namespace PublicServicesCardsProject.Migrations
 {
+    using DataAccess;
     using Models;
     using System;
     using System.Collections.Generic;
@@ -7,14 +8,14 @@ namespace PublicServicesCardsProject.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<PublicServicesCardsProject.DataAccess.PSCContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<PSCContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(PublicServicesCardsProject.DataAccess.PSCContext context)
+        protected override void Seed(PSCContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -28,7 +29,7 @@ namespace PublicServicesCardsProject.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            var Staff = new List<Staff>()
+            var staff = new List<Staff>()
             {
                new Staff
                {
@@ -59,16 +60,13 @@ namespace PublicServicesCardsProject.Migrations
                                EmailAddress = "Adam@gmail.com",
                                PPSN = "1234567S",
                                CivilStatus = "Single"
-                           },
-                           Building = new Building
-                           {
-                               BuildingId = 1
-                               // Staff Needs To Be Populated
                            }
                        }
                    }
                }
             };
+            staff.ForEach(a => context.Staff.Add(a));
+            context.SaveChanges();
         }
     }
 }

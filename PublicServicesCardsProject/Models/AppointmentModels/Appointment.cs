@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PublicServicesCardsProject.Models
 {
-    class Appointment
+    public class Appointment
     {
         [Key]
         public int AppointmentId { get; set; }

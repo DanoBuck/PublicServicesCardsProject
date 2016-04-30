@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PublicServicesCardsProject.Models
 {
-    class Staff : Person
+    public class Staff : Person
     {
         public double Salary { get; set; }
         public int DeskNumber { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PublicServicesCardsProject.Models
 {
-    class Building
+    public class Building
     {
         public int BuildingId { get; set; }
 

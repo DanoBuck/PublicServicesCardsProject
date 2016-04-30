@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PublicServicesCardsProject.Models
 {
-    class Customer : Person
+    public class Customer : Person
     {
         public virtual string CivilStatus { get; set; }
     }
