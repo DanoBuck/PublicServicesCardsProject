@@ -13,9 +13,13 @@ namespace PublicServicesCardsProject.Models
         public int PersonId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
+        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         public string PPSN { get; set; }
+        
+        public string Name { get { return FirstName + " " + LastName; } }
 
         public int Age
         {

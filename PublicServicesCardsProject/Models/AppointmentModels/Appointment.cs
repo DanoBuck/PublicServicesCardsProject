@@ -11,6 +11,9 @@ namespace PublicServicesCardsProject.Models
     {
         [Key]
         public int AppointmentId { get; set; }
+        public int BuildingId { get; set; }
+        public int StaffId { get; set; }
+        public int CustomerId { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime DateOfAppointment { get; set; }
