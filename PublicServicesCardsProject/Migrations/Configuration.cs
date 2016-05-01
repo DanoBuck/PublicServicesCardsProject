@@ -30,34 +30,6 @@ namespace PublicServicesCardsProject.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            var staff = new List<Staff>
-            {
-               new Staff
-               {
-                   PersonId = 1,
-                   FirstName = "Daniel",
-                   LastName = "Buckley",
-                   DateOfBirth = new DateTime(1995,1,9),
-                   EmailAddress = "DaniielBuckleyTy3@gmail.com",
-                   PPSN = "1234567Q",
-                   Salary = 45000,
-                   DeskNumber = 1,
-               },
-               new Staff
-               {
-                   PersonId = 2,
-                   FirstName = "Cecil",
-                   LastName = "O'Hegarthy",
-                   DateOfBirth = new DateTime(1990,6,12),
-                   EmailAddress = "CecilOHegarthy@gmail.com",
-                   PPSN = "1234567A",
-                   Salary = 49000,
-                   DeskNumber = 2,
-               }
-            };
-            staff.ForEach(a => context.Staff.AddOrUpdate(a));
-            context.SaveChanges();
-
             var buildings = new List<Building>
             {
                 new Building
@@ -72,6 +44,36 @@ namespace PublicServicesCardsProject.Migrations
                 }
             };
             buildings.ForEach(b => context.Buildings.AddOrUpdate(b));
+            context.SaveChanges();
+
+            var staff = new List<Staff>
+            {
+               new Staff
+               {
+                   PersonId = 1,
+                   FirstName = "Daniel",
+                   LastName = "Buckley",
+                   DateOfBirth = new DateTime(1995,1,9),
+                   EmailAddress = "DaniielBuckleyTy3@gmail.com",
+                   PPSN = "1234567Q",
+                   Salary = 45000,
+                   DeskNumber = 1,
+                   BuildingId = 1
+               },
+               new Staff
+               {
+                   PersonId = 2,
+                   FirstName = "Cecil",
+                   LastName = "O'Hegarthy",
+                   DateOfBirth = new DateTime(1990,6,12),
+                   EmailAddress = "CecilOHegarthy@gmail.com",
+                   PPSN = "1234567A",
+                   Salary = 49000,
+                   DeskNumber = 2,
+                   BuildingId = 1
+               }
+            };
+            staff.ForEach(a => context.Staff.AddOrUpdate(a));
             context.SaveChanges();
 
             var customers = new List<Customer>

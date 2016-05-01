@@ -12,18 +12,20 @@ namespace PublicServicesCardsProject.Migrations
                 c => new
                     {
                         AppointmentId = c.Int(nullable: false, identity: true),
+                        BuildingId = c.Int(nullable: false),
+                        StaffId = c.Int(nullable: false),
+                        CustomerId = c.Int(nullable: false),
                         DateOfAppointment = c.DateTime(nullable: false),
                         TimeOfAppointment = c.DateTime(nullable: false),
                         Staff_PersonId = c.Int(),
-                        Building_BuildingId = c.Int(),
                         Customer_PersonId = c.Int(),
                     })
                 .PrimaryKey(t => t.AppointmentId)
                 .ForeignKey("dbo.Person", t => t.Staff_PersonId)
-                .ForeignKey("dbo.Building", t => t.Building_BuildingId)
+                .ForeignKey("dbo.Building", t => t.BuildingId, cascadeDelete: true)
                 .ForeignKey("dbo.Person", t => t.Customer_PersonId)
+                .Index(t => t.BuildingId)
                 .Index(t => t.Staff_PersonId)
-                .Index(t => t.Building_BuildingId)
                 .Index(t => t.Customer_PersonId);
             
             CreateTable(
@@ -53,26 +55,26 @@ namespace PublicServicesCardsProject.Migrations
                         PPSN = c.String(),
                         Salary = c.Double(),
                         DeskNumber = c.Int(),
+                        BuildingId = c.Int(),
                         CivilStatus = c.String(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
-                        Building_BuildingId = c.Int(),
                     })
                 .PrimaryKey(t => t.PersonId)
-                .ForeignKey("dbo.Building", t => t.Building_BuildingId)
-                .Index(t => t.Building_BuildingId);
+                .ForeignKey("dbo.Building", t => t.BuildingId, cascadeDelete: true)
+                .Index(t => t.BuildingId);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Appointment", "Customer_PersonId", "dbo.Person");
-            DropForeignKey("dbo.Appointment", "Building_BuildingId", "dbo.Building");
-            DropForeignKey("dbo.Person", "Building_BuildingId", "dbo.Building");
+            DropForeignKey("dbo.Appointment", "BuildingId", "dbo.Building");
+            DropForeignKey("dbo.Person", "BuildingId", "dbo.Building");
             DropForeignKey("dbo.Appointment", "Staff_PersonId", "dbo.Person");
-            DropIndex("dbo.Person", new[] { "Building_BuildingId" });
+            DropIndex("dbo.Person", new[] { "BuildingId" });
             DropIndex("dbo.Appointment", new[] { "Customer_PersonId" });
-            DropIndex("dbo.Appointment", new[] { "Building_BuildingId" });
             DropIndex("dbo.Appointment", new[] { "Staff_PersonId" });
+            DropIndex("dbo.Appointment", new[] { "BuildingId" });
             DropTable("dbo.Person");
             DropTable("dbo.Building");
             DropTable("dbo.Appointment");

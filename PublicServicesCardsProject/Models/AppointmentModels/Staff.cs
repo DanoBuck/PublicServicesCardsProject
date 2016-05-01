@@ -10,6 +10,7 @@ namespace PublicServicesCardsProject.Models
     {
         public double Salary { get; set; }
         public int DeskNumber { get; set; }
+        public int BuildingId { get; set; }
 
         // Staff Have A Number Of Appointments Which Take Place In A Building
         public virtual ICollection<Appointment> Appointments { get; set; }
