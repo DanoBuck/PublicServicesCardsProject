@@ -16,7 +16,6 @@ namespace PublicServicesCardsProject.DataAccess
         {
         }
 
-        public DbSet<Person> People { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Staff> Staff { get; set; }

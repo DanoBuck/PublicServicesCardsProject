@@ -50,7 +50,7 @@ namespace PublicServicesCardsProject.Migrations
             {
                new Staff
                {
-                   PersonId = 1,
+                   StaffId = 1,
                    FirstName = "Daniel",
                    LastName = "Buckley",
                    DateOfBirth = new DateTime(1995,1,9),
@@ -62,7 +62,7 @@ namespace PublicServicesCardsProject.Migrations
                },
                new Staff
                {
-                   PersonId = 2,
+                   StaffId = 2,
                    FirstName = "Cecil",
                    LastName = "O'Hegarthy",
                    DateOfBirth = new DateTime(1990,6,12),
@@ -80,7 +80,7 @@ namespace PublicServicesCardsProject.Migrations
             {
                 new Customer
                 {
-                    PersonId = 3,
+                    CustomerId = 3,
                     FirstName = "Adam",
                     LastName = "Buckley",
                     DateOfBirth = new DateTime(1996, 12, 2),
@@ -90,7 +90,7 @@ namespace PublicServicesCardsProject.Migrations
                 },
                 new Customer
                 {
-                    PersonId = 4,
+                    CustomerId = 4,
                     FirstName = "Amanda",
                     LastName = "Chapington",
                     DateOfBirth = new DateTime(1987,5,12),

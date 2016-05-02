@@ -41,7 +41,7 @@ namespace PublicServicesCardsProject.Controllers
         public ActionResult Create()
         {
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice");
-            ViewBag.StaffId = new SelectList(db.Staff, "PersonId", "Name");
+            ViewBag.StaffId = new SelectList(db.Staff, "StaffId", "Name");
             return View();
         }
 
@@ -60,7 +60,7 @@ namespace PublicServicesCardsProject.Controllers
             }
 
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
-            ViewBag.StaffId = new SelectList(db.Staff, "PersonId", "Name", appointment.StaffId);
+            ViewBag.StaffId = new SelectList(db.Staff, "StaffId", "Name", appointment.StaffId);
             return View(appointment);
         }
 
@@ -77,7 +77,7 @@ namespace PublicServicesCardsProject.Controllers
                 return HttpNotFound();
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
-            ViewBag.StaffId = new SelectList(db.Staff, "PersonId", "Name", appointment.StaffId);
+            ViewBag.StaffId = new SelectList(db.Staff, "StaffId", "Name", appointment.StaffId);
             return View(appointment);
         }
 
@@ -95,7 +95,7 @@ namespace PublicServicesCardsProject.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
-            ViewBag.StaffId = new SelectList(db.Staff, "PersonId", "Name", appointment.StaffId);
+            ViewBag.StaffId = new SelectList(db.Staff, "StaffId", "Name", appointment.StaffId);
             return View(appointment);
         }
 

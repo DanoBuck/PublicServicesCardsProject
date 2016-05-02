@@ -33,7 +33,7 @@
             Desk Number
         </th>
         <th>
-            Safe Office
+            Office
         </th>
         <th></th>
     </tr>
@@ -65,9 +65,9 @@
             @Html.DisplayFor(modelItem => item.Building.SafeOffice)
         </td>
         <td>
-            @Html.ActionLink(" Edit", "Edit", new { id=item.PersonId }, htmlAttributes: new { @class = " glyphicon glyphicon-edit " }) |
-            @Html.ActionLink(" Details", "Details", new { id=item.PersonId }, htmlAttributes: new { @class = " glyphicon glyphicon-info-sign " }) |
-            @Html.ActionLink(" Delete", "Delete", new { id=item.PersonId }, htmlAttributes: new { @class = " glyphicon glyphicon-remove " })
+            @Html.ActionLink(" Edit", "Edit", new { id=item.StaffId }, htmlAttributes: new { @class = " glyphicon glyphicon-edit " }) |
+            @Html.ActionLink(" Details", "Details", new { id=item.StaffId }, htmlAttributes: new { @class = " glyphicon glyphicon-info-sign " }) |
+            @Html.ActionLink(" Delete", "Delete", new { id=item.StaffId }, htmlAttributes: new { @class = " glyphicon glyphicon-remove " })
         </td>
     </tr>
 }

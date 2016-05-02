@@ -47,11 +47,11 @@ namespace PublicServicesCardsProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber")] Staff staff)
+        public ActionResult Create([Bind(Include = "StaffId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber")] Staff staff)
         {
             if (ModelState.IsValid)
             {
-                db.People.Add(staff);
+                db.Staff.Add(staff);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -79,7 +79,7 @@ namespace PublicServicesCardsProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber")] Staff staff)
+        public ActionResult Edit([Bind(Include = "StaffId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber")] Staff staff)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace PublicServicesCardsProject.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Staff staff = db.Staff.Find(id);
-            db.People.Remove(staff);
+            db.Staff.Remove(staff);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
