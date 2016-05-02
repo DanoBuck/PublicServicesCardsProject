@@ -56,7 +56,7 @@ namespace PublicServicesCardsProject.Migrations
                         BuildingId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.StaffId)
-                .ForeignKey("dbo.Building", t => t.BuildingId, cascadeDelete: false)
+                .ForeignKey("dbo.Building", t => t.BuildingId, cascadeDelete: true)
                 .Index(t => t.BuildingId);
             
             CreateTable(
