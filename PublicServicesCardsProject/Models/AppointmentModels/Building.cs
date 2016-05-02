@@ -19,6 +19,6 @@ namespace PublicServicesCardsProject.Models
         public string County { get; set; }
         public string Phone { get; set; }
         // Buildings Have A Number Of Staff Working In Them
-        public virtual ICollection<Staff> Staff { get; set; }
+        public virtual IQueryable<Staff> Staff { get; set; }
     }
 }
