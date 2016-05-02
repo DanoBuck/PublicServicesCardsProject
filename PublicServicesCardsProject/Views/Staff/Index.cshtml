@@ -5,10 +5,16 @@
 }
 
 <h2>All Staff</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label class="control-label col-md-2">Office</label>
+        <div class="col-md-10">
+            @Html.DropDownList("office", "All")
+            <input type="submit" value="Filter" />
+        </div>
+    </div>
+}
 <table class="table">
     <tr>
         <th>
@@ -73,3 +79,7 @@
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>

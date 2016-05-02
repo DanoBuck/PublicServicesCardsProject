@@ -16,9 +16,24 @@ namespace PublicServicesCardsProject.Controllers
         private PSCContext db = new PSCContext();
 
         // GET: Staff
-        public ActionResult Index()
+        public ActionResult Index(string office)
         {
-            return View(db.Staff.ToList());
+            //var buildingList = new List<string>();
+
+            //var buildingQuery = from s in db.Staff
+            //                    orderby s.Building.SafeOffice
+            //                    select s;
+
+            //ViewBag.searchString = new SelectList(buildingQuery);
+
+            var staff = from s in db.Staff
+                        select s;
+
+            if (!String.IsNullOrEmpty(office)){
+                staff = staff.Where(s => s.Building.SafeOffice.Equals(office));
+            }
+            ViewBag.office = new SelectList(db.Buildings, "SafeOffice", "SafeOffice");
+            return View(staff.ToList());
         }
 
         // GET: Staff/Details/5
