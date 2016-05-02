@@ -20,5 +20,39 @@ namespace PublicServicesCardsProject.Models
         public string Phone { get; set; }
         // Buildings Have A Number Of Staff Working In Them
         public virtual IQueryable<Staff> Staff { get; set; }
+
+        public string Address
+        {
+            get
+            {
+                string address = " ";
+                if (String.IsNullOrEmpty(AddressLine4))
+                {
+                    address = AddressLine1 + ", "
+                    + AddressLine2 + ", " + AddressLine3 + ", " + County;
+                }
+                else if (String.IsNullOrEmpty(AddressLine3))
+                {
+                    address = AddressLine1 + ", "
+                    + AddressLine2 + ", " + AddressLine4 + ", " + County;
+                }
+                else if (String.IsNullOrEmpty(AddressLine2))
+                {
+                    address = AddressLine1 + ", "
+                    + AddressLine3 + ", " + AddressLine4 + ", " + County;
+                }
+                else if (String.IsNullOrEmpty(AddressLine1))
+                {
+                    address = AddressLine2 + ", "
+                    + AddressLine3 + ", " + AddressLine4 + ", " + County;
+                }
+                else
+                {
+                    address = AddressLine1 + ", " + AddressLine2 + ", "
+                    + AddressLine3 + ", " + AddressLine4 + ", " + County;
+                }
+                return address;
+            }
+        }
     }
 }
