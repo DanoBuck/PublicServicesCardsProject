@@ -32,6 +32,7 @@ namespace PublicServicesCardsProject.Migrations
             //
             var buildings = new List<Building>
             {
+                // 1
                 new Building
                 {
                     SafeOffice = "Gandon PSC Centre",
@@ -41,6 +42,28 @@ namespace PublicServicesCardsProject.Migrations
                     AddressLine4 = "Amiens Street ",
                     County = "Dublin",
                     Phone = "(01) 8172640"
+                },
+                // 2
+                new Building
+                {
+                    SafeOffice = "Tallaght PSC Centre",
+                    AddressLine1 = "Unit 247",
+                    AddressLine2 = "Level 2",
+                    AddressLine3 = "The Square Shopping Centre",
+                    AddressLine4 = "Tallaght",
+                    County = "Dublin",
+                    Phone = "(01) 4629496"
+                },
+                // 3
+                new Building
+                {
+                    SafeOffice = "Intreo Centre Swords",
+                    AddressLine1 = "Mainscourt",
+                    AddressLine2 = "23 Main Street",
+                    AddressLine3 = "Swords",
+                    //AddressLine4 = "Tallaght",
+                    County = "Dublin",
+                    Phone = "(01) 4629496"
                 }
             };
             buildings.ForEach(b => context.Buildings.AddOrUpdate(b));
@@ -58,7 +81,7 @@ namespace PublicServicesCardsProject.Migrations
                    PPSN = "1234567Q",
                    Salary = 45000,
                    DeskNumber = 1,
-                   BuildingId = 1
+                   BuildingId = 1 // Gandon
                },
                new Staff
                {
@@ -70,8 +93,56 @@ namespace PublicServicesCardsProject.Migrations
                    PPSN = "1234567A",
                    Salary = 49000,
                    DeskNumber = 2,
-                   BuildingId = 1
-               }
+                   BuildingId = 1 // Gandon
+               },
+               new Staff
+               {
+                   StaffId = 3,
+                   FirstName = "Freda",
+                   LastName = "Burns",
+                   DateOfBirth = new DateTime(1965,5,1),
+                   EmailAddress = "FredaBurns@outlook.com",
+                   PPSN = "1234567B",
+                   Salary = 45000,
+                   DeskNumber = 1,
+                   BuildingId = 2 // Tallaght PSC
+               },
+               new Staff
+               {
+                   StaffId = 4,
+                   FirstName = "Threasa",
+                   LastName = "O'Reilly",
+                   DateOfBirth = new DateTime(1980,12,6),
+                   EmailAddress = "ThreasaO'Reilly@live.ie",
+                   PPSN = "1234567C",
+                   Salary = 49000,
+                   DeskNumber = 2,
+                   BuildingId = 2 // Tallaght PSC
+               },
+               new Staff
+               {
+                   StaffId = 5,
+                   FirstName = "Milly",
+                   LastName = "Masterson",
+                   DateOfBirth = new DateTime(1955,5,1),
+                   EmailAddress = "MillyMasterson@outlook.com",
+                   PPSN = "123456KA",
+                   Salary = 45000,
+                   DeskNumber = 1,
+                   BuildingId = 3 // Swords
+               },
+               new Staff
+               {
+                   StaffId = 6,
+                   FirstName = "Billy",
+                   LastName = "O'Byrne",
+                   DateOfBirth = new DateTime(1979,12,6),
+                   EmailAddress = "BillyO'Byrne@live.ie",
+                   PPSN = "123456BA",
+                   Salary = 49000,
+                   DeskNumber = 2,
+                   BuildingId = 3 // Swords
+               },
             };
             staff.ForEach(a => context.Staff.AddOrUpdate(a));
             context.SaveChanges();
@@ -80,7 +151,7 @@ namespace PublicServicesCardsProject.Migrations
             {
                 new Customer
                 {
-                    CustomerId = 3,
+                    CustomerId = 1,
                     FirstName = "Adam",
                     LastName = "Buckley",
                     DateOfBirth = new DateTime(1996, 12, 2),
@@ -90,12 +161,52 @@ namespace PublicServicesCardsProject.Migrations
                 },
                 new Customer
                 {
-                    CustomerId = 4,
+                    CustomerId = 2,
                     FirstName = "Amanda",
                     LastName = "Chapington",
                     DateOfBirth = new DateTime(1987,5,12),
                     EmailAddress = "Adam@gmail.com",
                     PPSN = "1234567A",
+                    CivilStatus = "Married"
+                },
+                new Customer
+                {
+                    CustomerId = 3,
+                    FirstName = "Phil",
+                    LastName = "Philipson",
+                    DateOfBirth = new DateTime(1916, 3, 30),
+                    EmailAddress = "Phil@gmail.com",
+                    PPSN = "1234567S",
+                    CivilStatus = "Single"
+                },
+                new Customer
+                {
+                    CustomerId = 4,
+                    FirstName = "Imelda",
+                    LastName = "Donaldson",
+                    DateOfBirth = new DateTime(1982,2,10),
+                    EmailAddress = "ImeldaDonaldson@gmail.com",
+                    PPSN = "1234567L",
+                    CivilStatus = "Married"
+                },
+                new Customer
+                {
+                    CustomerId = 5,
+                    FirstName = "Finbarr",
+                    LastName = "Furey",
+                    DateOfBirth = new DateTime(1920, 3, 30),
+                    EmailAddress = "FinbarrFurey@gmail.com",
+                    PPSN = "1234567H",
+                    CivilStatus = "Married"
+                },
+                new Customer
+                {
+                    CustomerId = 6,
+                    FirstName = "Dog",
+                    LastName = "Dogson",
+                    DateOfBirth = new DateTime(1973,1,15),
+                    EmailAddress = "Dogson@gmail.com",
+                    PPSN = "1234567Q",
                     CivilStatus = "Married"
                 }
             };
@@ -119,7 +230,39 @@ namespace PublicServicesCardsProject.Migrations
                     CustomerId = 4, // Amanda Chapington,
                     DateOfAppointment = DateTime.Today.Date,
                     TimeOfAppointment = DateTime.Now.AddMinutes(15)
-                }
+                },
+                new Appointment
+                {
+                    BuildingId = 2, // Tallaght
+                    StaffId = 3, // Freda Burns
+                    CustomerId = 3, // Phil Philipson
+                    DateOfAppointment = DateTime.Today.Date,
+                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                },
+                new Appointment
+                {
+                    BuildingId = 2, // Tallaght
+                    StaffId = 4, // Threase O'Reilly
+                    CustomerId = 4, // Imelda Donaldson
+                    DateOfAppointment = DateTime.Today.Date,
+                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                },
+                new Appointment
+                {
+                    BuildingId = 3, // Swords
+                    StaffId = 5, // MillyMasterson
+                    CustomerId = 5, // Finbarr Furey
+                    DateOfAppointment = DateTime.Today.Date,
+                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                },
+                new Appointment
+                {
+                    BuildingId = 3, // Swords
+                    StaffId = 6, // Billy O'Byrne
+                    CustomerId = 6, // Dog Dogson
+                    DateOfAppointment = DateTime.Today.Date,
+                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                },
             };
             appointments.ForEach(a => context.Appointments.AddOrUpdate(a));
             context.SaveChanges();
