@@ -33,6 +33,7 @@ namespace PublicServicesCardsProject.Controllers
             {
                 return HttpNotFound();
             }
+            building.Staff = FindStaffInBuilding(id);
             return View(building);
         }
 
@@ -123,6 +124,17 @@ namespace PublicServicesCardsProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public IQueryable<Staff> FindStaffInBuilding(int? id)
+        {
+            var query = from d in db.Staff
+                        where d.BuildingId == id
+                        select d;
+
+            var list = query;
+
+            return list;
         }
     }
 }
