@@ -71,9 +71,9 @@
             @Html.DisplayFor(modelItem => item.Building.SafeOffice)
         </td>
         <td>
-            @Html.ActionLink(" Edit", "Edit", new { id=item.StaffId }, htmlAttributes: new { @class = " glyphicon glyphicon-edit " }) |
-            @Html.ActionLink(" Details", "Details", new { id=item.StaffId }, htmlAttributes: new { @class = " glyphicon glyphicon-info-sign " }) |
-            @Html.ActionLink(" Delete", "Delete", new { id=item.StaffId }, htmlAttributes: new { @class = " glyphicon glyphicon-remove " })
+            @Html.ActionLink(" Edit", "Edit", new { id=item.StaffId }, htmlAttributes: new { @class = " fa fa-edit" }) |
+            @Html.ActionLink(" Details", "Details", new { id=item.StaffId }, htmlAttributes: new { @class = " fa fa-info " }) |
+            @Html.ActionLink(" Delete", "Delete", new { id=item.StaffId }, htmlAttributes: new { @class = " fa fa-trash-o " })
         </td>
     </tr>
 }
