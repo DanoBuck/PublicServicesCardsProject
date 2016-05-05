@@ -38,10 +38,10 @@ namespace PublicServicesCardsProject.Controllers
         }
 
         // GET: Appointments/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice");
-            ViewBag.StaffId = new SelectList(db.Staff, "StaffId", "Name");
+            ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId == id), "StaffId", "Name");
             return View();
         }
 
@@ -133,6 +133,10 @@ namespace PublicServicesCardsProject.Controllers
             base.Dispose(disposing);
         }
 
+        /*
+        * This code is based on that of found at http://www.devcurry.com/2013/01aspnet-mvc-cascading-dropdown-list.html
+        * On 5/5/2016 underneath                                      
+        */
         public JsonResult GetAllStaffInBuilding(int id)
         {
             db.Configuration.ProxyCreationEnabled = false;
