@@ -26,13 +26,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StaffId, "Staff", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("StaffId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })
             </div>
         </div>
-        <!-- This Will Be Hidden No Need to Change Customers Name -->>
+        <!-- This Will Be Hidden No Need to Change Customers Name -->
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -71,4 +71,30 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#BuildingId").change(function ()
+        {
+            $("#StaffId").empty();
+            $.ajax({
+                type:'POST',
+                url: '@Url.Action("GetAllStaffInBuilding")',
+                dataType: 'json',
+                data: { id: $("#BuildingId").val() },
+                success: function (staffs) {
+                    $.each(staffs, function (i, staff) {
+                        $("#StaffId").append('<option value ="'
+                            + staff.StaffId + '">'
+                            + staff.Name + '</option');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script> @*http://www.devcurry.com/2013/01/aspnet-mvc-cascading-dropdown-list.html*@
 }

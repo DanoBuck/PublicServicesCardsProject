@@ -18,7 +18,7 @@ namespace PublicServicesCardsProject.Controllers
         // GET: Appointments
         public ActionResult Index()
         {
-            var appointments = db.Appointments.Include(a => a.Building);
+            var appointments = db.Appointments.Include(a => a.Building).Include(a => a.Staff);
             return View(appointments.ToList());
         }
 
@@ -58,9 +58,8 @@ namespace PublicServicesCardsProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
-            ViewBag.StaffId = new SelectList(db.Staff, "StaffId", "Name", appointment.StaffId);
+            ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId.Equals(appointment.BuildingId)), "StaffId", "Name", appointment.StaffId);
             return View(appointment);
         }
 
@@ -77,7 +76,7 @@ namespace PublicServicesCardsProject.Controllers
                 return HttpNotFound();
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
-            ViewBag.StaffId = new SelectList(db.Staff, "StaffId", "Name", appointment.StaffId);
+            ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId == appointment.BuildingId), "StaffId", "Name", appointment.BuildingId);
             return View(appointment);
         }
 
@@ -95,7 +94,7 @@ namespace PublicServicesCardsProject.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
-            ViewBag.StaffId = new SelectList(db.Staff, "StaffId", "Name", appointment.StaffId);
+            //ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId.Equals(appointment.BuildingId)), "StaffId", "Name", appointment.BuildingId);
             return View(appointment);
         }
 
@@ -132,6 +131,17 @@ namespace PublicServicesCardsProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public JsonResult GetAllStaffInBuilding(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var query = from d in db.Staff
+                        where d.BuildingId == id
+                        select d;
+
+            IEnumerable<Staff> staffs = query;
+            return Json(staffs);
         }
     }
 }
