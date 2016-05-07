@@ -54,9 +54,17 @@ namespace PublicServicesCardsProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Appointments.Add(appointment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (CheckAvailabityOfTimeAndDate(appointment))
+                {
+                    db.Appointments.Add(appointment);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    string message = "No appointment available at" + appointment.TimeOfAppointment + " on " + appointment.DateOfAppointment
+                        + " with " + appointment.StaffId + " in " + appointment.BuildingId;
+                }
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
             ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId.Equals(appointment.BuildingId)), "StaffId", "Name", appointment.StaffId);
@@ -146,6 +154,28 @@ namespace PublicServicesCardsProject.Controllers
 
             IEnumerable<Staff> staffs = query;
             return Json(staffs);
+        }
+
+        public bool CheckAvailabityOfTimeAndDate(Appointment appointment)
+        {
+            var query = from d in db.Appointments
+                        select d;
+
+            query = query.Where(x => x.TimeOfAppointment == appointment.TimeOfAppointment)
+                    .Where(x => x.DateOfAppointment == appointment.DateOfAppointment)
+                    .Where(x => x.StaffId == appointment.StaffId);
+
+            bool returnValue = true;
+
+            if(query.Count() == 0)
+            {
+                returnValue = true; // Appointment is Available
+            }
+            else
+            {
+                returnValue = false; // Appointment is not Available
+            }
+            return returnValue;
         }
     }
 }

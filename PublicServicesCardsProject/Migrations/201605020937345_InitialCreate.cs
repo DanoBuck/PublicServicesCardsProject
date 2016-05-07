@@ -19,9 +19,9 @@ namespace PublicServicesCardsProject.Migrations
                         TimeOfAppointment = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.AppointmentId)
-                .ForeignKey("dbo.Staff", t => t.StaffId, cascadeDelete: false)
-                .ForeignKey("dbo.Building", t => t.BuildingId, cascadeDelete: false)
-                .ForeignKey("dbo.Customer", t => t.CustomerId, cascadeDelete: false)
+                .ForeignKey("dbo.Building", t => t.BuildingId, cascadeDelete: true)
+                .ForeignKey("dbo.Customer", t => t.CustomerId, cascadeDelete: true)
+                .ForeignKey("dbo.Staff", t => t.StaffId, cascadeDelete: true)
                 .Index(t => t.BuildingId)
                 .Index(t => t.StaffId)
                 .Index(t => t.CustomerId);
@@ -42,6 +42,20 @@ namespace PublicServicesCardsProject.Migrations
                 .PrimaryKey(t => t.BuildingId);
             
             CreateTable(
+                "dbo.Customer",
+                c => new
+                    {
+                        CustomerId = c.Int(nullable: false, identity: true),
+                        FirstName = c.String(),
+                        LastName = c.String(),
+                        DateOfBirth = c.DateTime(nullable: false),
+                        EmailAddress = c.String(),
+                        PPSN = c.String(),
+                        CivilStatus = c.String(),
+                    })
+                .PrimaryKey(t => t.CustomerId);
+            
+            CreateTable(
                 "dbo.Staff",
                 c => new
                     {
@@ -56,37 +70,23 @@ namespace PublicServicesCardsProject.Migrations
                         BuildingId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.StaffId)
-                .ForeignKey("dbo.Building", t => t.BuildingId, cascadeDelete: true)
+                .ForeignKey("dbo.Building", t => t.BuildingId, cascadeDelete: false)
                 .Index(t => t.BuildingId);
-            
-            CreateTable(
-                "dbo.Customer",
-                c => new
-                    {
-                        CustomerId = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        DateOfBirth = c.DateTime(nullable: false),
-                        EmailAddress = c.String(),
-                        PPSN = c.String(),
-                        CivilStatus = c.String(),
-                    })
-                .PrimaryKey(t => t.CustomerId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Appointment", "CustomerId", "dbo.Customer");
-            DropForeignKey("dbo.Appointment", "BuildingId", "dbo.Building");
             DropForeignKey("dbo.Staff", "BuildingId", "dbo.Building");
             DropForeignKey("dbo.Appointment", "StaffId", "dbo.Staff");
+            DropForeignKey("dbo.Appointment", "CustomerId", "dbo.Customer");
+            DropForeignKey("dbo.Appointment", "BuildingId", "dbo.Building");
             DropIndex("dbo.Staff", new[] { "BuildingId" });
             DropIndex("dbo.Appointment", new[] { "CustomerId" });
             DropIndex("dbo.Appointment", new[] { "StaffId" });
             DropIndex("dbo.Appointment", new[] { "BuildingId" });
-            DropTable("dbo.Customer");
             DropTable("dbo.Staff");
+            DropTable("dbo.Customer");
             DropTable("dbo.Building");
             DropTable("dbo.Appointment");
         }
