@@ -54,6 +54,7 @@ namespace PublicServicesCardsProject.Controllers
         // GET: Staff/Create
         public ActionResult Create()
         {
+            ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice");
             return View();
         }
 
@@ -62,7 +63,7 @@ namespace PublicServicesCardsProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StaffId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber")] Staff staff)
+        public ActionResult Create([Bind(Include = "StaffId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber,BuildingId")] Staff staff)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +71,7 @@ namespace PublicServicesCardsProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", staff.BuildingId);
             return View(staff);
         }
 
@@ -86,6 +87,7 @@ namespace PublicServicesCardsProject.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice");
             return View(staff);
         }
 
@@ -94,7 +96,7 @@ namespace PublicServicesCardsProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StaffId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber")] Staff staff)
+        public ActionResult Edit([Bind(Include = "StaffId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber,BuildingId")] Staff staff)
         {
             if (ModelState.IsValid)
             {
@@ -102,6 +104,7 @@ namespace PublicServicesCardsProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", staff.BuildingId);
             return View(staff);
         }
 
