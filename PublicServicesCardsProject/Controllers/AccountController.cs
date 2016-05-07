@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PublicServicesCardsProject.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PublicServicesCardsProject.Controllers
 {
@@ -421,6 +422,32 @@ namespace PublicServicesCardsProject.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        // Will Be Used Later On to Redirect Users to their Rightful Places
+        public string FindUserType()
+        {
+            string roleReturned = " ";
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ApplicationDbContext context = new ApplicationDbContext();
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var userRole = userManager.GetRoles(user.GetUserId());
+                if (userRole[0].ToString() == "Manager")
+                {
+                    roleReturned = "Manager";
+                }
+                else if (userRole[0].ToString() == "Staff")
+                {
+                    roleReturned = "Staff";
+                }
+                else if (userRole[0].ToString() == "Customer")
+                {
+                    roleReturned = "Customer";
+                }
+            }
+            return roleReturned;
         }
 
         #region Helpers
