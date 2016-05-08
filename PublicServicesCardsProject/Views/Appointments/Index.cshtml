@@ -1,18 +1,15 @@
 ﻿@model IEnumerable<PublicServicesCardsProject.Models.Appointment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Appointments";
 }
 
-<h2>Index</h2>
+<h2>Appointments</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { id = 1 })
-</p>
-<table class="table">
+<table class="table table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Building.SafeOffice)
+            Office
         </th>
         <th>
             Staff Name
@@ -21,10 +18,10 @@
            Customer Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfAppointment)
+            Appointment Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TimeOfAppointment)
+            Appointment  Time
         </th>
         <th></th>
     </tr>
@@ -47,11 +44,15 @@
             @Html.DisplayFor(modelItem => item.TimeOfAppointment)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AppointmentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AppointmentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AppointmentId })
+            @Html.ActionLink(" Edit", "Edit", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-edit" }) |
+            @Html.ActionLink(" Details", "Details", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-info " }) |
+            @Html.ActionLink(" Delete", "Delete", new { id=item.AppointmentId }, htmlAttributes: new { @class = " fa fa-trash-o " })
         </td>
     </tr>
 }
 
 </table>
+
+<p>
+    <button>@Html.ActionLink("New", "Create", new { id = 1 })</button>
+</p>
