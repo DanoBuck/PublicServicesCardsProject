@@ -1,6 +1,5 @@
 namespace PublicServicesCardsProject.Migrations
 {
-    using DataAccess;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;

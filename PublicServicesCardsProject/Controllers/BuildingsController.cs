@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using PublicServicesCardsProject.DataAccess;
 using PublicServicesCardsProject.Models;
 
 namespace PublicServicesCardsProject.Controllers
