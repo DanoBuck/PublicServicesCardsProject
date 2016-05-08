@@ -13,7 +13,7 @@ namespace PublicServicesCardsProject.Controllers
 {
     public class BuildingsController : Controller
     {
-        private PSCContext db = new PSCContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Buildings
         public ActionResult Index()

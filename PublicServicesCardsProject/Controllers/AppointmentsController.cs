@@ -13,7 +13,7 @@ namespace PublicServicesCardsProject.Controllers
 {
     public class AppointmentsController : Controller
     {
-        private PSCContext db = new PSCContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Appointments
         public ActionResult Index()
