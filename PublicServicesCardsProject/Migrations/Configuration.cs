@@ -1,6 +1,8 @@
 namespace PublicServicesCardsProject.Migrations
 {
     using DataAccess;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
     using System;
     using System.Collections.Generic;
@@ -8,7 +10,7 @@ namespace PublicServicesCardsProject.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<PSCContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -16,7 +18,7 @@ namespace PublicServicesCardsProject.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(PSCContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -147,6 +149,9 @@ namespace PublicServicesCardsProject.Migrations
             staff.ForEach(a => context.Staff.AddOrUpdate(a));
             context.SaveChanges();
 
+            CreateManagerRoleAndPopuate(context); // Makes Daniel Buckley the Manager
+            CreateStaffRoleAndPopulate(context); // Makes All Staff Staff Members Excluding Daniel Buckley
+
             var customers = new List<Customer>
             {
                 new Customer
@@ -213,6 +218,46 @@ namespace PublicServicesCardsProject.Migrations
             customers.ForEach(c => context.Customers.AddOrUpdate(c));
             context.SaveChanges();
 
+            CreateCustomerRoleAndPopulate(context);
+
+            //const string RoleName = "Cust";
+
+            //var userRole = new IdentityRole { Name = RoleName, Id = Guid.NewGuid().ToString() };
+            //context.Roles.Add(userRole);
+
+            //PasswordHasher pass = new PasswordHasher();
+
+            //var user = new ApplicationUser
+            //{
+            //    CustomerId = 5,
+            //    UserName = "Finbar Furey",
+            //    Email = "FinbarrFurey@gmail.com",
+            //    PasswordHash = pass.HashPassword("PassWord1'")
+            //};
+            //user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
+            //context.Users.Add(user);
+            //base.Seed(context);
+
+            //context.SaveChanges();
+            //    foreach (var c in customers)
+            //    {
+            //        var user = new ApplicationUser
+            //        {
+            //            UserName = c.Name,
+            //            Email = c.EmailAddress,
+            //            CustomerId = c.CustomerId
+            //        };
+
+            //        string password = "P@ssWord1'";
+
+            //        var checkUser = userManager.Create(user, password);
+
+            //        if (checkUser.Succeeded)
+            //        {
+            //            var result = userManager.AddToRole(user.Id, "Customer");
+            //        }
+            //}
+
             var appointments = new List<Appointment>
             {
                 new Appointment
@@ -266,6 +311,90 @@ namespace PublicServicesCardsProject.Migrations
             };
             appointments.ForEach(a => context.Appointments.AddOrUpdate(a));
             context.SaveChanges();
+        }
+
+        public void CreateManagerRoleAndPopuate(ApplicationDbContext context)
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            const string ManagerRole = "Manager";
+
+            var userRole = new IdentityRole { Name = ManagerRole, Id = Guid.NewGuid().ToString() };
+            context.Roles.Add(userRole);
+
+            PasswordHasher pass = new PasswordHasher();
+            foreach(var staff in context.Staff)
+            {
+                if (staff.Name == "Daniel Buckley")
+                {
+                    var user = new ApplicationUser
+                    {
+                        StaffId = staff.StaffId,
+                        UserName = staff.Name,
+                        Email = staff.EmailAddress,
+                        PasswordHash = pass.HashPassword("PassWord1'")
+                    };
+                    user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
+                    context.Users.Add(user);
+                    base.Seed(context);
+                }
+            }
+        }
+
+        public void CreateStaffRoleAndPopulate(ApplicationDbContext context)
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            const string StaffRole = "Staff";
+
+            var userRole = new IdentityRole { Name = StaffRole, Id = Guid.NewGuid().ToString() };
+            context.Roles.Add(userRole);
+
+            PasswordHasher pass = new PasswordHasher();
+            foreach (var staff in context.Staff)
+            {
+                if (staff.Name != "Daniel Buckley")
+                {
+                    var user = new ApplicationUser
+                    {
+                        StaffId = staff.StaffId,
+                        UserName = staff.Name,
+                        Email = staff.EmailAddress,
+                        PasswordHash = pass.HashPassword("PassWord1'")
+                    };
+                    user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
+                    context.Users.Add(user);
+                    base.Seed(context);
+                }
+            }
+        }
+
+        public void CreateCustomerRoleAndPopulate(ApplicationDbContext context)
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            const string CustomerRole = "Customer";
+
+            var userRole = new IdentityRole { Name = CustomerRole, Id = Guid.NewGuid().ToString() };
+            context.Roles.Add(userRole);
+
+            PasswordHasher pass = new PasswordHasher();
+            foreach (var customer in context.Customers)
+            {
+                var user = new ApplicationUser
+                {
+                    CustomerId = customer.CustomerId,
+                    UserName = customer.Name,
+                    Email = customer.EmailAddress,
+                    PasswordHash = pass.HashPassword("PassWord1'")
+                };
+                user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
+                context.Users.Add(user);
+                base.Seed(context);
+            }
         }
     }
 }
