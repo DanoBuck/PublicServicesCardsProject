@@ -1,17 +1,44 @@
-﻿@{
+﻿@model IEnumerable<PublicServicesCardsProject.Models.Building>
+
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<table>
+    <tr>
+        <td valign="top">
+            @*@Html.TextBox("txtSearch", null, new { @placeholder = "Search"})*@
+                <div id="myData">
+                    <table class="table">
+                            <tr>
+                                <td>
+                                    @Html.DropDownList("BuildingId", null, htmlAttributes: new { @class = "form-control", style = "width: 200px;" })
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </td>
+            <td valign="top">
+            <div id="googleMap" style="width:1000px;height:700px;">
+            </div>
+        </td>
+    </tr>
+</table>
+
+@Scripts.Render("~/Scripts/jquery-1.10.2.js")
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+<script>
+function initialize() {
+  var mapProp = {
+    center: new google.maps.LatLng(53.5177209, -9.2890388),
+    zoom:6,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PublicServicesCardsProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,9 @@ namespace PublicServicesCardsProject.Controllers
 {
     public class HomeController : Controller
     {
+
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
             return View();
@@ -23,8 +27,8 @@ namespace PublicServicesCardsProject.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice");
+            return View(db.Buildings.ToList());
         }
     }
 }
