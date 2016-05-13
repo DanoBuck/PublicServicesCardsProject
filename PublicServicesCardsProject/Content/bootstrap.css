@@ -6904,3 +6904,9 @@ button.close {
 .panel-info .panel-title {
   color: #fff;
 }
+
+.slide1, .slide2, .slide3 {
+    min-height: 400px;
+    background-size: cover;
+    background-position: center center;
+}
