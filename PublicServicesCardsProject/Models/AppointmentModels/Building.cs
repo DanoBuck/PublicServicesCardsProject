@@ -10,11 +10,15 @@ namespace PublicServicesCardsProject.Models
     public class Building
     {
         [Key]
-        public int BuildingId { get; set; }
+        [StringLength(200, ErrorMessage = "Safe Office cannot be longer than 200 characters.")]
         public string SafeOffice { get; set; }
+        [StringLength(200, ErrorMessage = "Address Line 1 cannot be longer than 200 characters.")]
         public string AddressLine1 { get; set; }
+        [StringLength(200, ErrorMessage = "Address Line 2 cannot be longer than 200 characters.")]
         public string AddressLine2 { get; set; }
+        [StringLength(200, ErrorMessage = "Address Line 3 cannot be longer than 200 characters.")]
         public string AddressLine3 { get; set; }
+        [StringLength(200, ErrorMessage = "Address Line 4 cannot be longer than 200 characters.")]
         public string AddressLine4 { get; set; }
         public string County { get; set; }
         public string Phone { get; set; }

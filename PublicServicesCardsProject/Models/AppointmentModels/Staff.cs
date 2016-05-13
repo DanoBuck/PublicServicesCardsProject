@@ -11,14 +11,18 @@ namespace PublicServicesCardsProject.Models
     {
         [Key]
         public int StaffId { get; set; }
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "First name cannot be longer than 30 characters.")]
         public string FirstName { get; set; }
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Last Name cannot be longer than 30 characters.")]
         public string LastName { get; set; }
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
+        [StringLength(9, MinimumLength = 8, ErrorMessage = "PPSN cannot be longer than 8 or 9 characters.")]
         public string PPSN { get; set; }
         public double Salary { get; set; }
+        [Range(0, 25)]
         public int DeskNumber { get; set; }
         public int BuildingId { get; set; }
 

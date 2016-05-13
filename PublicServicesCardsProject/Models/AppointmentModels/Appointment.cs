@@ -16,6 +16,7 @@ namespace PublicServicesCardsProject.Models
         public int CustomerId { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfAppointment { get; set; }
 
         [DataType(DataType.Time)]
