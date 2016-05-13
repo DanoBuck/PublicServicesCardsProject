@@ -13,7 +13,7 @@ namespace PublicServicesCardsProject.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201605081144347_InitialCreate"; }
+            get { return "201605132110048_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

@@ -10,9 +10,12 @@ namespace PublicServicesCardsProject.Models
     public class Building
     {
         [Key]
+        public int BuildingId { get; set; }
         [StringLength(200, ErrorMessage = "Safe Office cannot be longer than 200 characters.")]
+        [Required]
         public string SafeOffice { get; set; }
         [StringLength(200, ErrorMessage = "Address Line 1 cannot be longer than 200 characters.")]
+        [Required]
         public string AddressLine1 { get; set; }
         [StringLength(200, ErrorMessage = "Address Line 2 cannot be longer than 200 characters.")]
         public string AddressLine2 { get; set; }
@@ -20,7 +23,9 @@ namespace PublicServicesCardsProject.Models
         public string AddressLine3 { get; set; }
         [StringLength(200, ErrorMessage = "Address Line 4 cannot be longer than 200 characters.")]
         public string AddressLine4 { get; set; }
+        [Required]
         public string County { get; set; }
+        [Required]
         public string Phone { get; set; }
         // Buildings Have A Number Of Staff Working In Them
         public virtual IQueryable<Staff> Staff { get; set; }

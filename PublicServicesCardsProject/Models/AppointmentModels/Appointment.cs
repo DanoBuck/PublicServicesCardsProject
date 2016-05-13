@@ -17,9 +17,11 @@ namespace PublicServicesCardsProject.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Required]
         public DateTime DateOfAppointment { get; set; }
 
         [DataType(DataType.Time)]
+        [Required]
         public DateTime TimeOfAppointment { get; set; }
 
         // These Three Objects Make An Appointment Possible

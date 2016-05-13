@@ -31,13 +31,13 @@ namespace PublicServicesCardsProject.Migrations
                 c => new
                     {
                         BuildingId = c.Int(nullable: false, identity: true),
-                        SafeOffice = c.String(),
-                        AddressLine1 = c.String(),
-                        AddressLine2 = c.String(),
-                        AddressLine3 = c.String(),
-                        AddressLine4 = c.String(),
-                        County = c.String(),
-                        Phone = c.String(),
+                        SafeOffice = c.String(nullable: false, maxLength: 200),
+                        AddressLine1 = c.String(nullable: false, maxLength: 200),
+                        AddressLine2 = c.String(maxLength: 200),
+                        AddressLine3 = c.String(maxLength: 200),
+                        AddressLine4 = c.String(maxLength: 200),
+                        County = c.String(nullable: false),
+                        Phone = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.BuildingId);
             
@@ -46,11 +46,11 @@ namespace PublicServicesCardsProject.Migrations
                 c => new
                     {
                         CustomerId = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
+                        FirstName = c.String(nullable: false, maxLength: 30),
+                        LastName = c.String(nullable: false, maxLength: 30),
                         DateOfBirth = c.DateTime(nullable: false),
-                        EmailAddress = c.String(),
-                        PPSN = c.String(),
+                        EmailAddress = c.String(nullable: false),
+                        PPSN = c.String(nullable: false, maxLength: 9),
                         CivilStatus = c.String(),
                     })
                 .PrimaryKey(t => t.CustomerId);
@@ -60,11 +60,11 @@ namespace PublicServicesCardsProject.Migrations
                 c => new
                     {
                         StaffId = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
+                        FirstName = c.String(nullable: false, maxLength: 30),
+                        LastName = c.String(nullable: false, maxLength: 30),
                         DateOfBirth = c.DateTime(nullable: false),
-                        EmailAddress = c.String(),
-                        PPSN = c.String(),
+                        EmailAddress = c.String(nullable: false),
+                        PPSN = c.String(nullable: false, maxLength: 9),
                         Salary = c.Double(nullable: false),
                         DeskNumber = c.Int(nullable: false),
                         BuildingId = c.Int(nullable: false),
