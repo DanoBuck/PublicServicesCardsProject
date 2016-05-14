@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PublicServicesCardsProject.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace PublicServicesCardsProject.Controllers
 {
@@ -463,6 +464,30 @@ namespace PublicServicesCardsProject.Controllers
                 }
             }
             return roleReturned;
+        }
+
+        public ActionResult UsersAndRoles()
+        {
+            var userRoles = new List<UserRoleViewModel>();
+            var context = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            //Get all the usernames
+            foreach (var user in userStore.Users)
+            {
+                var r = new UserRoleViewModel
+                {
+                    EmailAddress = user.Email
+                };
+                userRoles.Add(r);
+            }
+            //Get all the Roles for our users
+            foreach (var user in userRoles)
+            {
+                user.Roles = userManager.GetRoles(userStore.Users.First(s => s.Email == user.EmailAddress).Id);
+            }
+            return View(userRoles);
         }
 
         #region Helpers

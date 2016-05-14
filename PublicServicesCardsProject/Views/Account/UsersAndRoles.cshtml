@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PublicServicesCardsProject.Models.UserRoleViewModel>
+@{
+    ViewBag.Title = "Users And Roles";
+}
+<h2>Users And Roles</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            Email Address
+        </th>
+        <th>
+            System Role
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Roles)
+            </td>
+            <td>
+                @*@Html.ActionLink(" Edit", "Edit", new { email = item.Roles }, htmlAttributes: new { @class = " fa fa-edit" }) |*@
+                @*@Html.ActionLink(" Details", "Details", new { id = item.BuildingId }, htmlAttributes: new { @class = " fa fa-info " }) |
+                @Html.ActionLink(" Delete", "Delete", new { id = item.BuildingId }, htmlAttributes: new { @class = " fa fa-trash-o " })*@
+            </td>
+        </tr>
+    }
+</table>

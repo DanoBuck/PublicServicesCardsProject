@@ -30,7 +30,7 @@
                         <li>@Html.ActionLink("Staff", "Index", "Staff")</li>
                         <li>@Html.ActionLink("Appointments", "Index", "Appointments")</li>
                         <li>@Html.ActionLink("Buildings", "Index", "Buildings")</li>
-                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Users", "UsersAndRoles", "Account")</li>
                     }
                     else if (User.IsInRole("Customer") || (User.IsInRole("Staff")))
                     {

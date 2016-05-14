@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace PublicServicesCardsProject.Models
@@ -110,5 +112,11 @@ namespace PublicServicesCardsProject.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class UserRoleViewModel
+    { 
+        public ICollection<string> Roles { get; set; }
+        public string EmailAddress { get; set; }
     }
 }
