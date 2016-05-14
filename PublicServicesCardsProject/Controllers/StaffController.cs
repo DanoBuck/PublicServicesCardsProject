@@ -18,14 +18,6 @@ namespace PublicServicesCardsProject.Controllers
         // GET: Staff
         public ActionResult Index(string office)
         {
-            //var buildingList = new List<string>();
-
-            //var buildingQuery = from s in db.Staff
-            //                    orderby s.Building.SafeOffice
-            //                    select s;
-
-            //ViewBag.searchString = new SelectList(buildingQuery);
-
             var staff = from s in db.Staff
                         select s;
 
