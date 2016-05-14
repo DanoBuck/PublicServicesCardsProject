@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PublicServicesCardsProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace PublicServicesCardsProject.Controllers
 {
-    [Authorize(Roles = "Customer, Staff")]
+    [Authorize(Roles = "Manager ,Customer, Staff")]
     public class AppointmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,7 +19,21 @@ namespace PublicServicesCardsProject.Controllers
         // GET: Appointments
         public ActionResult Index()
         {
-            var appointments = db.Appointments.Include(a => a.Building).Include(a => a.Staff);
+            var id = User.Identity.GetUserId();
+
+            var appointments = from d in db.Appointments
+                               select d;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                var query = from d in db.Appointments
+                            from u in db.Users
+                            where d.StaffId == u.StaffId
+                            where u.Id == id
+                            select d;
+
+                appointments = query;
+            }
             return View(appointments.ToList());
         }
 
