@@ -10,6 +10,7 @@ using PublicServicesCardsProject.Models;
 
 namespace PublicServicesCardsProject.Controllers
 {
+    [Authorize(Roles = "Customer, Staff")]
     public class AppointmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

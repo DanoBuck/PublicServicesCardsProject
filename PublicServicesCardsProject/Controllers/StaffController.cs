@@ -10,6 +10,7 @@ using PublicServicesCardsProject.Models;
 
 namespace PublicServicesCardsProject.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class StaffController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
