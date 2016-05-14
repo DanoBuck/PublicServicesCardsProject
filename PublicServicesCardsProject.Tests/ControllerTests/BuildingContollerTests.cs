@@ -77,5 +77,25 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
             var result = controller.Edit(0);
             result.Should().NotBe(null);
         }
+
+        [TestMethod]
+        public void TestDeleteWithNullBuilding()
+        {
+            var result = controller.Delete(0) as HttpNotFoundResult;
+            result.Should().BeOfType(typeof(HttpNotFoundResult));
+        }
+
+        [TestMethod]
+        public void TestDeleteWithBuildingId()
+        {
+            var result = controller.Delete(3) as HttpNotFoundResult;
+            result.Should().Be(null);
+        }
+
+        [TestMethod]
+        public void TestDisposal()
+        {
+            controller.Dispose();
+        }
     }
 }
