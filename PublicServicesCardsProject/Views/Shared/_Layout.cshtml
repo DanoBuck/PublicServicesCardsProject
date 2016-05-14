@@ -25,12 +25,16 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Staff", "Index", "Staff")</li>
-                    <li>@Html.ActionLink("Appointments", "Index", "Appointments")</li>
-                    <li>@Html.ActionLink("Buildings", "Index", "Buildings")</li>
                     @if (User.IsInRole("Manager"))
                     {
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Staff", "Index", "Staff")</li>
+                        <li>@Html.ActionLink("Appointments", "Index", "Appointments")</li>
+                        <li>@Html.ActionLink("Buildings", "Index", "Buildings")</li>
+                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                    }
+                    else if (User.IsInRole("Customer") || (User.IsInRole("Staff")))
+                    {
+                        <li>@Html.ActionLink("My Appointments", "Index", "Appointments")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

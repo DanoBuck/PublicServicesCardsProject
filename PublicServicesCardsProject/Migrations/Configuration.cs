@@ -169,7 +169,7 @@ namespace PublicServicesCardsProject.Migrations
                     FirstName = "Amanda",
                     LastName = "Chapington",
                     DateOfBirth = new DateTime(1987,5,12),
-                    EmailAddress = "Adam@gmail.com",
+                    EmailAddress = "Amanda@gmail.com",
                     PPSN = "1234567A",
                     CivilStatus = "Married"
                 },
@@ -218,44 +218,6 @@ namespace PublicServicesCardsProject.Migrations
             context.SaveChanges();
 
             CreateCustomerRoleAndPopulate(context);
-
-            //const string RoleName = "Cust";
-
-            //var userRole = new IdentityRole { Name = RoleName, Id = Guid.NewGuid().ToString() };
-            //context.Roles.Add(userRole);
-
-            //PasswordHasher pass = new PasswordHasher();
-
-            //var user = new ApplicationUser
-            //{
-            //    CustomerId = 5,
-            //    UserName = "Finbar Furey",
-            //    Email = "FinbarrFurey@gmail.com",
-            //    PasswordHash = pass.HashPassword("PassWord1'")
-            //};
-            //user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
-            //context.Users.Add(user);
-            //base.Seed(context);
-
-            //context.SaveChanges();
-            //    foreach (var c in customers)
-            //    {
-            //        var user = new ApplicationUser
-            //        {
-            //            UserName = c.Name,
-            //            Email = c.EmailAddress,
-            //            CustomerId = c.CustomerId
-            //        };
-
-            //        string password = "P@ssWord1'";
-
-            //        var checkUser = userManager.Create(user, password);
-
-            //        if (checkUser.Succeeded)
-            //        {
-            //            var result = userManager.AddToRole(user.Id, "Customer");
-            //        }
-            //}
 
             var appointments = new List<Appointment>
             {
@@ -330,9 +292,10 @@ namespace PublicServicesCardsProject.Migrations
                     var user = new ApplicationUser
                     {
                         StaffId = staff.StaffId,
-                        UserName = staff.Name,
+                        UserName = staff.EmailAddress,
                         Email = staff.EmailAddress,
-                        PasswordHash = pass.HashPassword("PassWord1'")
+                        PasswordHash = pass.HashPassword("PassWord1'"),
+                        SecurityStamp = Guid.NewGuid().ToString()
                     };
                     user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
                     context.Users.Add(user);
@@ -359,9 +322,10 @@ namespace PublicServicesCardsProject.Migrations
                     var user = new ApplicationUser
                     {
                         StaffId = staff.StaffId,
-                        UserName = staff.Name,
+                        UserName = staff.EmailAddress,
                         Email = staff.EmailAddress,
-                        PasswordHash = pass.HashPassword("PassWord1'")
+                        PasswordHash = pass.HashPassword("PassWord1'"),
+                        SecurityStamp = Guid.NewGuid().ToString()
                     };
                     user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
                     context.Users.Add(user);
@@ -386,9 +350,10 @@ namespace PublicServicesCardsProject.Migrations
                 var user = new ApplicationUser
                 {
                     CustomerId = customer.CustomerId,
-                    UserName = customer.Name,
+                    UserName = customer.EmailAddress,
                     Email = customer.EmailAddress,
-                    PasswordHash = pass.HashPassword("PassWord1'")
+                    PasswordHash = pass.HashPassword("PassWord1'"),
+                    SecurityStamp = Guid.NewGuid().ToString()      
                 };
                 user.Roles.Add(new IdentityUserRole { RoleId = userRole.Id, UserId = user.Id });
                 context.Users.Add(user);
