@@ -24,7 +24,7 @@ namespace PublicServicesCardsProject.Controllers
             var appointments = from d in db.Appointments
                                select d;
 
-            if (!String.IsNullOrEmpty(id))
+            if (!String.IsNullOrEmpty(id) && (User.IsInRole("Manager") || User.IsInRole("Staff")))
             {
                 var query = from d in db.Appointments
                             from u in db.Users
@@ -33,7 +33,18 @@ namespace PublicServicesCardsProject.Controllers
                             select d;
 
                 appointments = query;
+            } 
+            else if (!String.IsNullOrEmpty(id) && User.IsInRole("Customer")){
+                var query = from d in db.Appointments
+                            from u in db.Users
+                            where d.CustomerId == u.CustomerId
+                            where u.Id == id
+                            select d;
+
+                appointments = query;
             }
+
+
             return View(appointments.ToList().OrderBy(s => s.DateOfAppointment));
         }
 
@@ -105,8 +116,11 @@ namespace PublicServicesCardsProject.Controllers
             {
                 return HttpNotFound();
             }
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
             ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId == appointment.BuildingId), "StaffId", "Name", appointment.BuildingId);
+            ViewBag.User = new SelectList(db.Customers.Where(l => l.CustomerId == currentUser.CustomerId), "CustomerId", "Name");
             return View(appointment);
         }
 
@@ -117,16 +131,20 @@ namespace PublicServicesCardsProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "AppointmentId,BuildingId,StaffId,CustomerId,DateOfAppointment,TimeOfAppointment")] Appointment appointment)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
                 if (CheckAvailabityOfTimeAndDate(appointment))
                 {
+                    appointment.CustomerId = currentUser.CustomerId.Value;
                     db.Entry(appointment).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
+            ViewBag.User = new SelectList(db.Customers.Where(l => l.CustomerId == currentUser.CustomerId), "CustomerId", "Name");
             return View(appointment);
         }
 
