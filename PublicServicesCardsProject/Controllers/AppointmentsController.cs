@@ -60,7 +60,6 @@ namespace PublicServicesCardsProject.Controllers
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice");
             ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId == id), "StaffId", "Name");
             ViewBag.User = new SelectList(db.Customers.Where(l => l.CustomerId == currentUser.CustomerId), "CustomerId", "Name");
-            //ViewBag.User = currentUser.Customers.Name;
             return View();
         }
 
@@ -91,7 +90,6 @@ namespace PublicServicesCardsProject.Controllers
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
             ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId.Equals(appointment.BuildingId)), "StaffId", "Name", appointment.StaffId);
             ViewBag.User = new SelectList(db.Customers.Where(l => l.CustomerId == currentUser.CustomerId), "CustomerId", "Name", appointment.CustomerId);
-            //ViewBag.User = currentUser.Customers.Name;
             return View(appointment);
         }
 
@@ -121,12 +119,14 @@ namespace PublicServicesCardsProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(appointment).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (CheckAvailabityOfTimeAndDate(appointment))
+                {
+                    db.Entry(appointment).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
-            //ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId.Equals(appointment.BuildingId)), "StaffId", "Name", appointment.BuildingId);
             return View(appointment);
         }
 
