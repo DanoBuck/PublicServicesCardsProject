@@ -3,7 +3,8 @@
 @{
     ViewBag.Title = "Appointments";
 }
-
+@if (User.IsInRole("Staff") || User.IsInRole("Manager"))
+{
 <h2>Appointments</h2>
 
 <table class="table table-hover">
@@ -26,7 +27,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Building.SafeOffice)
@@ -46,7 +48,7 @@
         <td>
             @Html.ActionLink(" Edit", "Edit", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-edit" }) |
             @Html.ActionLink(" Details", "Details", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-info " }) |
-            @Html.ActionLink(" Delete", "Delete", new { id=item.AppointmentId }, htmlAttributes: new { @class = " fa fa-trash-o " })
+            @Html.ActionLink(" Delete", "Delete", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-trash-o " })
         </td>
     </tr>
 }
@@ -56,3 +58,12 @@
 <p>
     <button>@Html.ActionLink("New", "Create", new { id = 1 })</button>
 </p>
+}
+else
+{
+    <h2>Make An Appointment</h2>
+
+    <p>
+        <button>@Html.ActionLink("New", "Create", new { id = 1 })</button>
+    </p>
+}

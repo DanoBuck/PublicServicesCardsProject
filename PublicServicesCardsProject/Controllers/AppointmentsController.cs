@@ -34,7 +34,7 @@ namespace PublicServicesCardsProject.Controllers
 
                 appointments = query;
             }
-            return View(appointments.ToList());
+            return View(appointments.ToList().OrderBy(s => s.DateOfAppointment));
         }
 
         // GET: Appointments/Details/5
@@ -55,8 +55,12 @@ namespace PublicServicesCardsProject.Controllers
         // GET: Appointments/Create
         public ActionResult Create(int? id)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice");
             ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId == id), "StaffId", "Name");
+            ViewBag.User = new SelectList(db.Customers.Where(l => l.CustomerId == currentUser.CustomerId), "CustomerId", "Name");
+            //ViewBag.User = currentUser.Customers.Name;
             return View();
         }
 
@@ -67,22 +71,27 @@ namespace PublicServicesCardsProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AppointmentId,BuildingId,StaffId,CustomerId,DateOfAppointment,TimeOfAppointment")] Appointment appointment)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
                 if (CheckAvailabityOfTimeAndDate(appointment))
                 {
+                    appointment.CustomerId = currentUser.CustomerId.Value;
                     db.Appointments.Add(appointment);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    string message = "No appointment available at" + appointment.TimeOfAppointment + " on " + appointment.DateOfAppointment
+                    string message = "No appointment available at " + appointment.TimeOfAppointment.TimeOfDay + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
                         + " with " + appointment.StaffId + " in " + appointment.BuildingId;
                 }
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
             ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId.Equals(appointment.BuildingId)), "StaffId", "Name", appointment.StaffId);
+            ViewBag.User = new SelectList(db.Customers.Where(l => l.CustomerId == currentUser.CustomerId), "CustomerId", "Name", appointment.CustomerId);
+            //ViewBag.User = currentUser.Customers.Name;
             return View(appointment);
         }
 
@@ -158,7 +167,7 @@ namespace PublicServicesCardsProject.Controllers
 
         /*
         * This code is based on that of found at http://www.devcurry.com/2013/01aspnet-mvc-cascading-dropdown-list.html
-        * On 5/5/2016 underneath                                      
+        * On 5/5/2016                                      
         */
         public JsonResult GetAllStaffInBuilding(int id)
         {
