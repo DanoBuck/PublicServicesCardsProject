@@ -83,20 +83,25 @@ namespace PublicServicesCardsProject.Controllers
         {
             var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
             var currentUser = manager.FindById(User.Identity.GetUserId());
-            if (ModelState.IsValid)
+            try {
+                if (ModelState.IsValid)
+                {
+                    if (CheckAvailabityOfTimeAndDate(appointment))
+                    {
+                        appointment.CustomerId = currentUser.CustomerId.Value;
+                        db.Appointments.Add(appointment);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        string message = "No appointment available at " + appointment.TimeOfAppointment.TimeOfDay + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
+                            + " with " + appointment.StaffId + " in " + appointment.BuildingId;
+                    }
+                }
+            } catch(DataException)
             {
-                if (CheckAvailabityOfTimeAndDate(appointment))
-                {
-                    appointment.CustomerId = currentUser.CustomerId.Value;
-                    db.Appointments.Add(appointment);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    string message = "No appointment available at " + appointment.TimeOfAppointment.TimeOfDay + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
-                        + " with " + appointment.StaffId + " in " + appointment.BuildingId;
-                }
+                ModelState.AddModelError("Error Saving Data" , "");
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
             ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId.Equals(appointment.BuildingId)), "StaffId", "Name", appointment.StaffId);
