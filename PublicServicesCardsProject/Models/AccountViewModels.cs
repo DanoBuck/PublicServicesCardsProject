@@ -83,6 +83,8 @@ namespace PublicServicesCardsProject.Models
         public string ConfirmPassword { get; set; }
 
         public virtual Customer Customers { get; set; }
+
+        public virtual Staff Staff { get; set; }
     }
 
     public class ResetPasswordViewModel

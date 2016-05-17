@@ -22,7 +22,6 @@ namespace PublicServicesCardsProject.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
         [DataType(DataType.EmailAddress)]
-        [Required]
         public string EmailAddress { get; set; }
         [StringLength(9, MinimumLength = 8, ErrorMessage = "PPSN cannot be longer than 8 or 9 characters.")]
         [Required]
