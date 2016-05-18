@@ -86,7 +86,7 @@ namespace PublicServicesCardsProject.Controllers
             try {
                 if (ModelState.IsValid)
                 {
-                    if (CheckAvailabityOfTimeAndDate(appointment))
+                    if (CheckAvailabityOfTimeAndDate(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment))
                     {
                         appointment.CustomerId = currentUser.CustomerId.Value;
                         db.Appointments.Add(appointment);
@@ -95,8 +95,8 @@ namespace PublicServicesCardsProject.Controllers
                     }
                     else
                     {
-                        string message = "No appointment available at " + appointment.TimeOfAppointment.TimeOfDay + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
-                            + " with " + appointment.StaffId + " in " + appointment.BuildingId;
+                        ModelState.AddModelError("No appointment available at " + appointment.TimeOfAppointment.TimeOfDay + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
+                            + " with " + appointment.StaffId + " in " + appointment.BuildingId, "");
                     }
                 }
             } catch(DataException)
@@ -223,6 +223,22 @@ namespace PublicServicesCardsProject.Controllers
                 returnValue = false; // Appointment is not Available
             }
             return returnValue;
+        }
+
+        // This Method Stops Customers Booking Dates Already Past
+        public bool CheckDateIsCorrect(DateTime appointmentDate)
+        {
+            bool isDateCorrect = true;
+            var result = appointmentDate.Subtract(DateTime.Today);
+
+            if(result.TotalDays >= 0)
+            {
+                isDateCorrect = true;
+            }
+            else if (result.TotalDays < 0) {
+                isDateCorrect = false;
+            }
+            return isDateCorrect;
         }
     }
 }
