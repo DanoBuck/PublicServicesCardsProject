@@ -86,17 +86,21 @@ namespace PublicServicesCardsProject.Controllers
             try {
                 if (ModelState.IsValid)
                 {
-                    if (CheckAvailabityOfTimeAndDate(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment))
+                    if (CheckAvailabityOfTimeAndDateIsNotAlreadyBooked(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment))
                     {
                         appointment.CustomerId = currentUser.CustomerId.Value;
                         db.Appointments.Add(appointment);
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
+                    else if (!CheckDateIsCorrect(appointment.DateOfAppointment))
+                    {
+                        TempData["Error"] = "Appointments cannot be booked for dates before " + DateTime.Today.ToShortDateString();
+                    }
                     else
                     {
-                        ModelState.AddModelError("No appointment available at " + appointment.TimeOfAppointment.TimeOfDay + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
-                            + " with " + appointment.StaffId + " in " + appointment.BuildingId, "");
+                        TempData["Error"] = "No appointment available at " + appointment.TimeOfAppointment.ToShortTimeString() + " on " + appointment.DateOfAppointment.Date.ToShortDateString() 
+                                            + " in this location";
                     }
                 }
             } catch(DataException)
@@ -140,15 +144,25 @@ namespace PublicServicesCardsProject.Controllers
             var currentUser = manager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
-                if (CheckAvailabityOfTimeAndDate(appointment))
+                if (CheckAvailabityOfTimeAndDateIsNotAlreadyBooked(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment))
                 {
                     appointment.CustomerId = currentUser.CustomerId.Value;
                     db.Entry(appointment).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                else if (!CheckDateIsCorrect(appointment.DateOfAppointment))
+                {
+                    TempData["Error"] = "Appointments cannot be booked for dates before " + DateTime.Today.ToShortDateString();
+                }
+                else
+                {
+                    TempData["Error"] = "No appointment available at " + appointment.TimeOfAppointment.ToShortTimeString() + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
+                                        + " in this location";
+                }
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", appointment.BuildingId);
+            ViewBag.StaffId = new SelectList(db.Staff.Where(s => s.BuildingId == appointment.BuildingId), "StaffId", "Name", appointment.BuildingId);
             ViewBag.User = new SelectList(db.Customers.Where(l => l.CustomerId == currentUser.CustomerId), "CustomerId", "Name");
             return View(appointment);
         }
@@ -203,7 +217,7 @@ namespace PublicServicesCardsProject.Controllers
             return Json(staffs);
         }
 
-        public bool CheckAvailabityOfTimeAndDate(Appointment appointment)
+        public bool CheckAvailabityOfTimeAndDateIsNotAlreadyBooked(Appointment appointment)
         {
             var query = from d in db.Appointments
                         select d;
