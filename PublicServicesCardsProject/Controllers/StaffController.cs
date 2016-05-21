@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
+using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using PublicServicesCardsProject.Models;
 
@@ -121,9 +121,18 @@ namespace PublicServicesCardsProject.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Staff staff = db.Staff.Find(id);
-            db.Staff.Remove(staff);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var app = db.Users.Where(s => s.StaffId == id).FirstOrDefault();
+            try
+            {
+                db.Users.Remove(app);
+                db.Staff.Remove(staff);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            } catch (Exception)
+            {
+                TempData["Error"] = "Error Deleting Staff Member";
+            }
+            return View(staff);
         }
 
         protected override void Dispose(bool disposing)
