@@ -19,7 +19,7 @@ namespace PublicServicesCardsProject.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "About This Application";
+            ViewBag.Message = "Quick Links";
 
             return View();
         }
