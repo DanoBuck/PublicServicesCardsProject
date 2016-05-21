@@ -114,6 +114,7 @@ namespace PublicServicesCardsProject.Controllers
         }
 
         // GET: Appointments/Edit/5
+        [Authorize(Roles = "Customer")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
