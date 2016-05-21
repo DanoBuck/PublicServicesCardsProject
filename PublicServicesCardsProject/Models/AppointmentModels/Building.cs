@@ -35,30 +35,35 @@ namespace PublicServicesCardsProject.Models
             get
             {
                 string address = " ";
-                if (String.IsNullOrEmpty(AddressLine4))
+                if (!(String.IsNullOrEmpty(AddressLine2)))
                 {
-                    address = AddressLine1 + ", "
-                    + AddressLine2 + ", " + AddressLine3 + ", " + County;
+                    if(String.IsNullOrEmpty(AddressLine3) && String.IsNullOrEmpty(AddressLine4))
+                    {
+                        address = AddressLine1 + ", " + AddressLine2 + ", " + County;
+                    }
+                    else if (AddressLine3 != null && AddressLine4 == null)
+                    {
+                        address = AddressLine1 + ", " + AddressLine2 + ", " + AddressLine3 + ", " + County;
+                    }
+                    else
+                    {
+                        address = AddressLine1 + ", " + AddressLine2 + ", " + AddressLine3 + ", " + AddressLine4 + ", " + County;
+                    }
                 }
-                else if (String.IsNullOrEmpty(AddressLine3))
+                else if (!(String.IsNullOrEmpty(AddressLine3)))
                 {
-                    address = AddressLine1 + ", "
-                    + AddressLine2 + ", " + AddressLine4 + ", " + County;
+                    if (String.IsNullOrEmpty(AddressLine4))
+                    {
+                        address = AddressLine1 + ", " + AddressLine3 + ", " + County;
+                    }
+                    else if (AddressLine4 != null)
+                    {
+                        address = AddressLine1 + ", " + AddressLine3 + ", " + AddressLine4 + ", " + County;
+                    }
                 }
-                else if (String.IsNullOrEmpty(AddressLine2))
+                else if (!(String.IsNullOrEmpty(AddressLine4)))
                 {
-                    address = AddressLine1 + ", "
-                    + AddressLine3 + ", " + AddressLine4 + ", " + County;
-                }
-                else if (String.IsNullOrEmpty(AddressLine1))
-                {
-                    address = AddressLine2 + ", "
-                    + AddressLine3 + ", " + AddressLine4 + ", " + County;
-                }
-                else
-                {
-                    address = AddressLine1 + ", " + AddressLine2 + ", "
-                    + AddressLine3 + ", " + AddressLine4 + ", " + County;
+                    address = AddressLine1 + ", " + AddressLine4 + ", " + County;
                 }
                 return address;
             }

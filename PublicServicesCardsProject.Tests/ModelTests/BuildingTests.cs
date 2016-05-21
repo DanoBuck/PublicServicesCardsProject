@@ -25,16 +25,12 @@ namespace PublicServicesCardsProject.Tests.ModelTests
         }
 
         [TestMethod]
-        public void TestAddress()
+        public void TestsForAddress2()
         {
-            // These first two tests need to be fixed as an extra common is added in
-            var address = building.Address;
-            address.Should().Be("1, , , C");
-
             building.AddressLine2 = "2";
-            address = building.Address;
-            address.Should().Be("1, 2, , C");
-            
+            var address = building.Address;
+            address.Should().Be("1, 2, C");
+
             building.AddressLine3 = "3";
             address = building.Address;
             address.Should().Be("1, 2, 3, C");
@@ -42,6 +38,26 @@ namespace PublicServicesCardsProject.Tests.ModelTests
             building.AddressLine4 = "4";
             address = building.Address;
             address.Should().Be("1, 2, 3, 4, C");
+        }
+
+        [TestMethod]
+        public void TestForAddress3()
+        {
+            building.AddressLine3 = "3";
+            var address = building.Address;
+            address.Should().Be("1, 3, C");
+
+            building.AddressLine4 = "4";
+            address = building.Address;
+            address.Should().Be("1, 3, 4, C");
+        }
+
+        [TestMethod]
+        public void TestForAddress4()
+        {
+            building.AddressLine4 = "4";
+            var address = building.Address;
+            address.Should().Be("1, 4, C");
         }
     }
 }
