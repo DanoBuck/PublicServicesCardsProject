@@ -72,10 +72,43 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
         }
 
         [TestMethod]
+        public void TestCreatePostException()
+        {
+            Building building = new Building
+            {
+                SafeOffice = "Intreoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo Centre Swordssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+                AddressLine1 = "Mainscourt",
+                AddressLine2 = "23 Main Street",
+                AddressLine3 = "Swords",
+                //AddressLine4 = "Tallaght",
+                County = "Dublin",
+                Phone = "(01) 4629496"
+            };
+            var result = controller.Create(building);
+            result.Should().NotBeNull();
+        }
+
+        [TestMethod]
         public void TestEditWithNull()
         {
             var result = controller.Edit(0);
             result.Should().NotBe(null);
+        }
+
+        [TestMethod]
+        public void TestEditPost()
+        {
+            Building building = new Building
+            {
+                SafeOffice = "Intreo Centre Swords",
+                AddressLine1 = "Mainscourt",
+                AddressLine2 = "23 Main Street",
+                AddressLine3 = "Swords",
+                County = "Dublin",
+                Phone = "(01) 4629496"
+            };
+            var result = controller.Edit(building);
+            result.Should().NotBeNull();
         }
 
         [TestMethod]
@@ -89,6 +122,13 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
         public void TestDeleteWithBuildingId()
         {
             var result = controller.Delete(3) as HttpNotFoundResult;
+            result.Should().Be(null);
+        }
+
+        [TestMethod]
+        public void TestDeleteConfirmed()
+        {
+            var result = controller.DeleteConfirmed(3) as HttpNotFoundResult;
             result.Should().Be(null);
         }
 

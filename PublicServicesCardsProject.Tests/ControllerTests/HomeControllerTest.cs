@@ -35,7 +35,7 @@ namespace PublicServicesCardsProject.Tests.Controllers
             ViewResult result = controller.About() as ViewResult;
 
             // Assert
-            Assert.AreEqual("About This Application", result.ViewBag.Message);
+            Assert.AreEqual("Quick Links", result.ViewBag.Message);
         }
 
         [TestMethod]

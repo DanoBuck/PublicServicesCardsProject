@@ -32,7 +32,7 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
         [TestMethod]
         public void TestDetails()
         {
-            var result = controller.Details(1);
+            var result = controller.Details(2);
             result.Should().BeOfType(typeof(ViewResult));
         }
 
@@ -73,12 +73,34 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
             };
             var result = controller.Create(staff);
             result.Should().BeOfType(typeof(RedirectToRouteResult));
+
+            var result2 = controller.DeleteConfirmed(1);
+            result2.Should().BeOfType(typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void TestCreatePostException()
+        {
+            Staff staff = new Staff
+            {
+                StaffId = 1,
+                FirstName = "Daniel",
+                LastName = "Buckley",
+                DateOfBirth = new DateTime(1995, 1, 9),
+                EmailAddress = "DaniielBuckleyTy3@gmail.com",
+                PPSN = "1234567Qasfssffsfsfsfsds",
+                Salary = 45000,
+                DeskNumber = 1,
+                BuildingId = 1 // Gandon
+            };
+            var result = controller.Create(staff);
+            result.Should().BeOfType(typeof(ViewResult));
         }
 
         [TestMethod]
         public void TestEditGetWithNumber()
         {
-            var result = controller.Edit(1);
+            var result = controller.Edit(2);
             result.Should().BeOfType(typeof(ViewResult));
         }
 
@@ -94,7 +116,7 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
         {
             Staff staff = new Staff
             {
-                StaffId = 1,
+                StaffId = 2,
                 FirstName = "Daniel",
                 LastName = "Buckley",
                 DateOfBirth = new DateTime(1995, 1, 9),
@@ -106,6 +128,25 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
             };
             var result = controller.Edit(staff);
             result.Should().BeOfType(typeof(RedirectToRouteResult));
+        }
+
+        [TestMethod]
+        public void TestEditPostException()
+        {
+            Staff staff = new Staff
+            {
+                StaffId = 2,
+                FirstName = "Daniel",
+                LastName = "Buckley",
+                DateOfBirth = new DateTime(1995, 1, 9),
+                EmailAddress = "DaniielBuckleyTy3@gmail.com",
+                PPSN = "1234567Qfdsffsffsfsfsfssfsf",
+                Salary = 45000,
+                DeskNumber = 1,
+                BuildingId = 1 // Gandon
+            };
+            var result = controller.Edit(staff);
+            result.Should().BeOfType(typeof(ViewResult));
         }
 
         [TestMethod]
@@ -126,7 +167,7 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
         [TestMethod]
         public void TestDeleteCorrectly()
         {
-            var result = controller.Delete(1);
+            var result = controller.Delete(2);
             result.Should().BeOfType(typeof(ViewResult));
         }
 
