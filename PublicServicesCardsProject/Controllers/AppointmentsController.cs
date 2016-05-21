@@ -146,10 +146,15 @@ namespace PublicServicesCardsProject.Controllers
             {
                 if (CheckAvailabityOfTimeAndDateIsNotAlreadyBooked(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment))
                 {
-                    appointment.CustomerId = currentUser.CustomerId.Value;
-                    db.Entry(appointment).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try {
+                        appointment.CustomerId = currentUser.CustomerId.Value;
+                        db.Entry(appointment).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    } catch (Exception)
+                    {
+                        ModelState.AddModelError("Error editing data", " ");
+                    }
                 }
                 else if (!CheckDateIsCorrect(appointment.DateOfAppointment))
                 {
@@ -188,9 +193,16 @@ namespace PublicServicesCardsProject.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Appointment appointment = db.Appointments.Find(id);
-            db.Appointments.Remove(appointment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try {
+                db.Appointments.Remove(appointment);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("Error deleting data", "");
+            }
+            return View(appointment);
         }
 
         protected override void Dispose(bool disposing)

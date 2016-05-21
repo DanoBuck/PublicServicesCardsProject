@@ -59,9 +59,15 @@ namespace PublicServicesCardsProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Staff.Add(staff);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try {
+                    db.Staff.Add(staff);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("Error creating data", "");
+                }
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", staff.BuildingId);
             return View(staff);
@@ -92,9 +98,15 @@ namespace PublicServicesCardsProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(staff).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try {
+                    db.Entry(staff).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                } 
+                catch (Exception)
+                {
+                    ModelState.AddModelError("Error editing data", "");
+                }
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", staff.BuildingId);
             return View(staff);

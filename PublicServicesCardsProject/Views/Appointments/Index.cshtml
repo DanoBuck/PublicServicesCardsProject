@@ -46,7 +46,6 @@
             @Html.DisplayFor(modelItem => item.TimeOfAppointment)
         </td>
         <td>
-            @Html.ActionLink(" Edit", "Edit", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-edit" }) |
             @Html.ActionLink(" Details", "Details", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-info " }) |
             @Html.ActionLink(" Delete", "Delete", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-trash-o " })
         </td>
@@ -101,6 +100,7 @@ else
                 </td>
                 <td>
                     @Html.ActionLink(" Edit", "Edit", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-edit" }) |
+                    @Html.ActionLink(" Details", "Details", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-info " }) |
                     @Html.ActionLink(" Cancel", "Delete", new { id = item.AppointmentId }, htmlAttributes: new { @class = " fa fa-trash-o " })
                 </td>
             </tr>

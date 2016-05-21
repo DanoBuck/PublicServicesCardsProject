@@ -52,9 +52,14 @@ namespace PublicServicesCardsProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Buildings.Add(building);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try {
+                    db.Buildings.Add(building);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                } catch (Exception)
+                {
+                    ModelState.AddModelError("Error creating data", "");
+                }
             }
 
             return View(building);
@@ -84,9 +89,14 @@ namespace PublicServicesCardsProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(building).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try {
+                    db.Entry(building).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                } catch (Exception)
+                {
+                    ModelState.AddModelError("Error editing data", "");
+                }
             }
             return View(building);
         }
@@ -112,9 +122,17 @@ namespace PublicServicesCardsProject.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Building building = db.Buildings.Find(id);
-            db.Buildings.Remove(building);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.Buildings.Remove(building);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("Error deleting data", "");
+            }
+            return View(building);
         }
 
         protected override void Dispose(bool disposing)
