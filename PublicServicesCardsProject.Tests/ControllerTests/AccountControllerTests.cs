@@ -35,7 +35,8 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
             LoginViewModel model = new LoginViewModel
             {
                 Email = "Email@Email.com",
-                Password = "PassWord1'"
+                Password = "PassWord1'",
+                RememberMe = true
             };
             controller.Login(model, "Url");
         }
