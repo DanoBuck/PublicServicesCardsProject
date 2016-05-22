@@ -17,12 +17,18 @@ namespace PublicServicesCardsProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Appointments
-        public ActionResult Index()
+        public ActionResult Index(string office)
         {
             var id = User.Identity.GetUserId();
 
             var appointments = from d in db.Appointments
                                select d;
+            if(User.IsInRole("Manager") && !String.IsNullOrEmpty(office))
+            {
+                appointments = appointments.Where(s => s.Building.SafeOffice.Equals(office));
+                ViewBag.office = new SelectList(db.Buildings, "SafeOffice", "SafeOffice");
+                return View(appointments.ToList());
+            }
 
             if (!String.IsNullOrEmpty(id) && (User.IsInRole("Manager") || User.IsInRole("Staff")))
             {
@@ -44,7 +50,7 @@ namespace PublicServicesCardsProject.Controllers
                 appointments = query;
             }
 
-
+            ViewBag.office = new SelectList(db.Buildings, "SafeOffice", "SafeOffice");
             return View(appointments.ToList().OrderBy(s => s.DateOfAppointment));
         }
 

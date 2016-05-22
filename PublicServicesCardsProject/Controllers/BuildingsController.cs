@@ -16,9 +16,20 @@ namespace PublicServicesCardsProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Buildings
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Buildings.ToList());
+            var query = from d in db.Buildings
+                        select d;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(s => s.SafeOffice.Contains(searchString));
+                if(query.Count() == 0)
+                {
+                    TempData["Error"] = "No Match Found Of " + searchString;
+                    return View(db.Buildings.ToList());
+                }
+            }
+            return View(query.ToList());
         }
 
         // GET: Buildings/Details/5

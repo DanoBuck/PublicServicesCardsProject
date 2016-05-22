@@ -5,6 +5,17 @@
 }
 
 <h2>Buildings</h2>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by office: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+        @if (TempData["Error"] != null)
+                {
+        <p style="color:red">@TempData["Error"]</p>
+        }
+    </p>
+}
 
 <table class="table table-hover">
     <tr>
