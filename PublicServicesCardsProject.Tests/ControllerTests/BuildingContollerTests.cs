@@ -21,7 +21,23 @@ namespace PublicServicesCardsProject.Tests.ControllerTests
         [TestMethod]
         public void TestIndex()
         {
-            var result = controller.Index() as ViewResult;
+            var result = controller.Index("") as ViewResult;
+
+            result.Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public void TestIndexWithParameter()
+        {
+            var result = controller.Index("Tallaght") as ViewResult;
+
+            result.Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public void TestIndexWithParameterThatDoesntExist()
+        {
+            var result = controller.Index("fddfsfdsfdsfdfdsfsdfds") as ViewResult;
 
             result.Should().NotBeNull();
         }
