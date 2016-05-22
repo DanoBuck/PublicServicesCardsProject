@@ -105,7 +105,9 @@
     <Compile Include="ControllerTests\AccountControllerTests.cs" />
     <Compile Include="ControllerTests\AppointmentsControllersTest.cs" />
     <Compile Include="ControllerTests\BuildingContollerTests.cs" />
+    <Compile Include="ControllerTests\ManageControllerTests.cs" />
     <Compile Include="ControllerTests\StaffControllerTests.cs" />
+    <Compile Include="MigrationTests\InitialCreateTests.cs" />
     <Compile Include="ModelTests\AppointmentTests.cs" />
     <Compile Include="ModelTests\BuildingTests.cs" />
     <Compile Include="ModelTests\CustomerTests.cs" />
