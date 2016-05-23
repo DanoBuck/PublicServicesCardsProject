@@ -30,5 +30,15 @@ namespace PublicServicesCardsProject.Controllers
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice");
             return View(db.Buildings.ToList());
         }
+
+        public ActionResult PostalApplication()
+        {
+            return View();
+        }
+
+        public ActionResult GeneratePostalRegistrationPDF()
+        {
+            return new Rotativa.ActionAsPdf("PostalApplication");
+        }
     }
 }
