@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PublicServicesCardsProject.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace PublicServicesCardsProject.Controllers
 {
@@ -272,6 +273,15 @@ namespace PublicServicesCardsProject.Controllers
                 isDateCorrect = false;
             }
             return isDateCorrect;
+        }
+
+        public JsonResult GetAppointmentsDataJson()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var query = from d in db.Appointments
+                        select d;
+
+            return Json(query, JsonRequestBehavior.AllowGet);
         }
     }
 }
