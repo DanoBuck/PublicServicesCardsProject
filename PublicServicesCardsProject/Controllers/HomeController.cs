@@ -36,9 +36,18 @@ namespace PublicServicesCardsProject.Controllers
             return View();
         }
 
+        // Code Based on http://www.codeproject.com/Tips/818197/Generate-PDF-in-ASP-NET-MVC-Using-Rotativa
+        // Accessed on 24/5/2016
+        [AllowAnonymous]
         public ActionResult GeneratePostalRegistrationPDF()
         {
-            return new Rotativa.ActionAsPdf("PostalApplication");
+            var model = new Customer();
+            string footer = "--footer-right \"Date: [date] [time]\" " + "--footer-center \"The Department of Social Protection\" --footer-line --footer-font-size \"9\" --footer-spacing 5 --footer-font-name \"calibri light\"";
+            return new Rotativa.PartialViewAsPdf("PostalApplication", model)
+            {
+                FileName = "PostalApplication.pdf",
+                CustomSwitches = footer
+            };
         }
     }
 }
