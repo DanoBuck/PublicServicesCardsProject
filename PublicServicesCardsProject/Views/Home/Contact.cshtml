@@ -9,61 +9,24 @@
 <table>
     <tr>
         <td valign="top">
-                <div id="myData">
-                    <table class="table">
-                        <tr>
-                            <td>
-                                @Html.DropDownList("BuildingId", null, htmlAttributes: new { @class = "form-control", style = "width: 200px;" })
-                            </td>
-                        </tr>
-                        <tr>
+            <div id="myData">
+                <table class="table">
+                    <tr>
+                        <td>
+                            @Html.DropDownList("BuildingId", null, htmlAttributes: new { @class = "form-control", style = "width: 200px;" })
+                        </td>
+                    </tr>
+                    <tr>
 
-                        </tr>
-                    </table>
-                </div>
-            </td>
-            <td valign="top">
-                <div id="map_canvas" style="width: 1000px; height: 700px;">
-                </div>
+                    </tr>
+                </table>
+             </div>
+        </td>
+        <td valign="top">
+            <iframe src="https://www.google.com/maps/d/embed?mid=1wn7h1bM9cYoIlFn8zRore9CNQm8" width="1000" height="700"></iframe>
         </td>
     </tr>
 </table>
 
 @Scripts.Render("~/Scripts/jquery-1.10.2.js")
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-
-<script type="text/javascript">
-
-   $(document).ready(function () {
-     initialize();
-   });
-   function initialize() {
-     var mapOptions = {
-       center: new google.maps.LatLng(53.5177209, -9.2890388),
-       zoom: 6,
-       mapTypeId: google.maps.MapTypeId.ROADMAP
-     };
-     var map = new google.maps.Map(document.getElementById("map_canvas"),
-       mapOptions);
-     // create a marker
-     var latlng = new google.maps.LatLng(53.3507429, -6.250765);
-     var marker = new google.maps.Marker({
-       position: latlng,
-       map: map,
-       title: 'Gandon House PSC Centre'
-     });
-     var latlng = new google.maps.LatLng(53.28801, -6.365093);
-     var marker = new google.maps.Marker({
-         position: latlng,
-         map: map,
-         title: 'Tallaght PSC Centre'
-     });
-     var latlng = new google.maps.LatLng(53.4579089, -6.2231683);
-     var marker = new google.maps.Marker({
-         position: latlng,
-         map: map,
-         title: 'Tallaght PSC Centre'
-     });
-   }
-</script>  
