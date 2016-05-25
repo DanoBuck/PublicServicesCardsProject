@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using PublicServicesCardsProject.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.Net.Mail;
+using System.Net;
 
 namespace PublicServicesCardsProject.Controllers
 {
@@ -174,9 +176,9 @@ namespace PublicServicesCardsProject.Controllers
                     };
                     user.CustomerId = user.Customers.CustomerId;
                     var result = await UserManager.CreateAsync(user, model.Password);
-
                     if (result.Succeeded)
                     {
+                        SendEmail(model);
                         UserManager.AddToRole(user.Id, "Customer"); // Now Users Registering are Customers by Default
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -210,16 +212,15 @@ namespace PublicServicesCardsProject.Controllers
                     };
                     user.StaffId = user.Staff.StaffId;
                     var result = await UserManager.CreateAsync(user, model.Password);
-
                     if (result.Succeeded)
                     {
                         UserManager.AddToRole(user.Id, "Staff"); // Now Managers Can Register Their Staff
+                        SendEmail(model);
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
                         // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                         return RedirectToAction("Index", "Staff");
                     }
                     AddErrors(result);
@@ -227,6 +228,33 @@ namespace PublicServicesCardsProject.Controllers
             }
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public void SendEmail(RegisterViewModel model)
+        {
+            MailMessage mail = new MailMessage();
+            mail.To.Add(new MailAddress(model.Email)); 
+            mail.From = new MailAddress("PublicServicesCardsOnline@gmail.com");
+            mail.Subject = "<strong>Register</strong>";
+            mail.Body = string.Format("Welcome " + model.Customers.Name + "Email: " + model.Email + "\nPassword: " + model.Password);
+            mail.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "PublicServicesCardsOnline@gmail.com",
+                    Password = "PassWord1'"
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+            }
         }
 
         //
