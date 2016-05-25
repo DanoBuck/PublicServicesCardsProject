@@ -27,6 +27,7 @@ namespace PublicServicesCardsProject.Controllers
             if(User.IsInRole("Manager") && !String.IsNullOrEmpty(office))
             {
                 appointments = appointments.Where(s => s.Building.SafeOffice.Equals(office));
+                appointments = appointments.OrderBy(x => x.DateOfAppointment);
                 ViewBag.office = new SelectList(db.Buildings, "SafeOffice", "SafeOffice");
                 return View(appointments.ToList());
             }
@@ -39,6 +40,7 @@ namespace PublicServicesCardsProject.Controllers
                             where u.Id == id
                             select d;
 
+                query = query.OrderBy(x => x.DateOfAppointment);
                 appointments = query;
             } 
             else if (!String.IsNullOrEmpty(id) && User.IsInRole("Customer")){
@@ -48,6 +50,7 @@ namespace PublicServicesCardsProject.Controllers
                             where u.Id == id
                             select d;
 
+                query = query.OrderBy(x => x.DateOfAppointment);
                 appointments = query;
             }
 
@@ -106,7 +109,7 @@ namespace PublicServicesCardsProject.Controllers
                     }
                     else
                     {
-                        TempData["Error"] = "No appointment available at " + appointment.TimeOfAppointment.ToShortTimeString() + " on " + appointment.DateOfAppointment.Date.ToShortDateString() 
+                        TempData["Error"] = "No appointment available at " + appointment.TimeOfAppointment+ " on " + appointment.DateOfAppointment.Date.ToShortDateString() 
                                             + " in this location";
                     }
                 }
@@ -170,7 +173,7 @@ namespace PublicServicesCardsProject.Controllers
                 }
                 else
                 {
-                    TempData["Error"] = "No appointment available at " + appointment.TimeOfAppointment.ToShortTimeString() + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
+                    TempData["Error"] = "No appointment available at " + appointment.TimeOfAppointment + " on " + appointment.DateOfAppointment.Date.ToShortDateString()
                                         + " in this location";
                 }
             }

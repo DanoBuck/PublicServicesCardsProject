@@ -215,7 +215,7 @@ namespace PublicServicesCardsProject.Migrations
                     StaffId = 1, // Daniel Buckley
                     CustomerId = 3, // Adam Buckley,
                     DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                    TimeOfAppointment = "9:00"
                 },
                 new Appointment
                 {
@@ -223,7 +223,7 @@ namespace PublicServicesCardsProject.Migrations
                     StaffId = 2, // Cecil
                     CustomerId = 4, // Amanda Chapington,
                     DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                    TimeOfAppointment = "10:00"
                 },
                 new Appointment
                 {
@@ -231,7 +231,7 @@ namespace PublicServicesCardsProject.Migrations
                     StaffId = 3, // Freda Burns
                     CustomerId = 3, // Phil Philipson
                     DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                    TimeOfAppointment = "11:00"
                 },
                 new Appointment
                 {
@@ -239,7 +239,7 @@ namespace PublicServicesCardsProject.Migrations
                     StaffId = 4, // Threase O'Reilly
                     CustomerId = 4, // Imelda Donaldson
                     DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                    TimeOfAppointment = "12:00"
                 },
                 new Appointment
                 {
@@ -247,7 +247,7 @@ namespace PublicServicesCardsProject.Migrations
                     StaffId = 5, // MillyMasterson
                     CustomerId = 5, // Finbarr Furey
                     DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                    TimeOfAppointment = "13:00"
                 },
                 new Appointment
                 {
@@ -255,7 +255,7 @@ namespace PublicServicesCardsProject.Migrations
                     StaffId = 6, // Billy O'Byrne
                     CustomerId = 6, // Dog Dogson
                     DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = DateTime.Now.AddMinutes(15)
+                    TimeOfAppointment = "14:00"
                 },
             };
             appointments.ForEach(a => context.Appointments.AddOrUpdate(a));

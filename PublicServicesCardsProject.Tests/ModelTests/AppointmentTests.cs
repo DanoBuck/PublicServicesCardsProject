@@ -24,7 +24,7 @@ namespace PublicServicesCardsProject.Tests.ModelTests
                 StaffId = 1,
                 CustomerId = 1,
                 DateOfAppointment = DateTime.Today,
-                TimeOfAppointment = DateTime.UtcNow,
+                TimeOfAppointment = "9:00",
                 Customer = new Customer(),
                 Staff = new Staff(),
                 Building = new Building()

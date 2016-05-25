@@ -20,10 +20,8 @@ namespace PublicServicesCardsProject.Models
         [Required]
         public DateTime DateOfAppointment { get; set; }
 
-        [DataType(DataType.Time)]
         [Required]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
-        public DateTime TimeOfAppointment { get; set; }
+        public string TimeOfAppointment { get; set; }
 
         // These Three Objects Make An Appointment Possible
         public virtual Customer Customer { get; set; }

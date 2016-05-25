@@ -51,11 +51,24 @@
                 @Html.ValidationMessageFor(model => model.DateOfAppointment, "", new { @class = "text-danger" })
             </div>
         </div>
+        @{
+            var TimeOfAppointments = new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem() {Text="09:00", Value="9:00"},
+                            new SelectListItem() { Text="10:00", Value="10:00" },
+                            new SelectListItem() { Text = "11:00", Value = "11:00" },
+                            new SelectListItem() { Text = "12:00", Value = "12:00" },
+                            new SelectListItem() { Text = "13:00", Value = "13:00" },
+                            new SelectListItem() { Text = "14:00", Value = "14:00" },
+                            new SelectListItem() { Text = "15:00", Value = "15:00" },
+                            new SelectListItem() { Text = "16:00", Value = "16:00" },
+                        }, "Value", "Text");
+        }
 
         <div class="form-group">
             @Html.LabelFor(model => model.TimeOfAppointment, "Appointment Time", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeOfAppointment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.TimeOfAppointment, TimeOfAppointments, "", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TimeOfAppointment, "", new { @class = "text-danger" })
             </div>
         </div>

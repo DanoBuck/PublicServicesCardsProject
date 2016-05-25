@@ -16,7 +16,7 @@ namespace PublicServicesCardsProject.Migrations
                         StaffId = c.Int(nullable: false),
                         CustomerId = c.Int(nullable: false),
                         DateOfAppointment = c.DateTime(nullable: false),
-                        TimeOfAppointment = c.DateTime(nullable: false),
+                        TimeOfAppointment = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.AppointmentId)
                 .ForeignKey("dbo.Buildings", t => t.BuildingId, cascadeDelete: true)
@@ -49,7 +49,7 @@ namespace PublicServicesCardsProject.Migrations
                         FirstName = c.String(nullable: false, maxLength: 30),
                         LastName = c.String(nullable: false, maxLength: 30),
                         DateOfBirth = c.DateTime(nullable: false),
-                        EmailAddress = c.String(nullable: false),
+                        EmailAddress = c.String(),
                         PPSN = c.String(nullable: false, maxLength: 9),
                         CivilStatus = c.String(),
                     })
@@ -63,7 +63,7 @@ namespace PublicServicesCardsProject.Migrations
                         FirstName = c.String(nullable: false, maxLength: 30),
                         LastName = c.String(nullable: false, maxLength: 30),
                         DateOfBirth = c.DateTime(nullable: false),
-                        EmailAddress = c.String(nullable: false),
+                        EmailAddress = c.String(),
                         PPSN = c.String(nullable: false, maxLength: 9),
                         Salary = c.Double(nullable: false),
                         DeskNumber = c.Int(nullable: false),
