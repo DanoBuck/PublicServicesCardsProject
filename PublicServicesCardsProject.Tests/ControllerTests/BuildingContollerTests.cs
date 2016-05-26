@@ -2,7 +2,6 @@
 using PublicServicesCardsProject.Controllers;
 using FluentAssertions;
 using System.Web.Mvc;
-using System.Net;
 using PublicServicesCardsProject.Models;
 
 namespace PublicServicesCardsProject.Tests.ControllerTests

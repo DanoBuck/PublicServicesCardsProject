@@ -129,8 +129,8 @@ else
     }
 }
 
-<script src="~/amcharts/amcharts.js"></script>
-<script src="~/amcharts/serial.js"></script>
+@Scripts.Render("~/amcharts/amcharts.js")
+@Scripts.Render("~/amcharts/serial.js")
 <script src="//www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     AmCharts.makeChart("chartdiv",

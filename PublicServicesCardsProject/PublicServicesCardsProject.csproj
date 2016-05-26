@@ -243,7 +243,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\Bird.jpg" />
     <Content Include="Images\dsp.jpg" />
-    <Content Include="Images\dsp.png" />
     <Content Include="Images\Favicon.jpg" />
     <Content Include="Images\online-booking.jpg" />
     <Content Include="Images\Psc.jpg" />

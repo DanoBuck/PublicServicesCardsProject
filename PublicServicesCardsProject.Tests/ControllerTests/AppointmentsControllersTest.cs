@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PublicServicesCardsProject.Controllers;
-using PublicServicesCardsProject.Models;
 using System.Web.Mvc;
 
 namespace PublicServicesCardsProject.Tests.ControllerTests
