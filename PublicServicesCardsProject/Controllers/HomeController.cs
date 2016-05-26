@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace PublicServicesCardsProject.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
 
