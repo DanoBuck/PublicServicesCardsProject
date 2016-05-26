@@ -236,7 +236,7 @@ namespace PublicServicesCardsProject.Controllers
             MailMessage mail = new MailMessage();
             mail.To.Add(new MailAddress(model.Email)); 
             mail.Subject = "Register Confirmation - Public Services Cards Online";
-            mail.Body = string.Format("<p>Welcome <strong>" + model.Customers.Name + "</strong></p><hr> <p>Email: <strong>" + model.Email + "</strong></p> <hr> <p>Password: <strong>" + model.Password + "</strong></p>");
+            mail.Body = string.Format("<h1>Welcome " + model.Customers.Name + "</h1><hr> <p>Email: <strong>" + model.Email + "</strong></p> <hr> <p>Password: <strong>" + model.Password + "</strong></p>");
             mail.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())
