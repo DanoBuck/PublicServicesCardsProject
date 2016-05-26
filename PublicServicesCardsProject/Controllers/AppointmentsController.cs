@@ -7,6 +7,7 @@ using System.Net;
 using System.Web.Mvc;
 using PublicServicesCardsProject.Models;
 using Microsoft.AspNet.Identity;
+using System.Net.Mail;
 
 namespace PublicServicesCardsProject.Controllers
 {
@@ -99,6 +100,7 @@ namespace PublicServicesCardsProject.Controllers
                         appointment.CustomerId = currentUser.CustomerId.Value;
                         db.Appointments.Add(appointment);
                         db.SaveChanges();
+                        SendEmailConfirmingAppointment(appointment);
                         return RedirectToAction("Index");
                     }
                     else if (!CheckDateIsCorrect(appointment.DateOfAppointment))
@@ -159,6 +161,7 @@ namespace PublicServicesCardsProject.Controllers
                         appointment.CustomerId = currentUser.CustomerId.Value;
                         db.Entry(appointment).State = EntityState.Modified;
                         db.SaveChanges();
+                        SendEmailConfirmingAppointment(appointment);
                         return RedirectToAction("Index");
                     } catch (Exception)
                     {
@@ -283,6 +286,44 @@ namespace PublicServicesCardsProject.Controllers
                         select d;
 
             return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public void SendEmailConfirmingAppointment(Appointment model)
+        {
+            MailMessage mail = new MailMessage();
+            var getCustomerEmail = from d in db.Customers
+                                   where d.CustomerId == model.CustomerId
+                                   select d.EmailAddress;
+            var getStaffName = from d in db.Staff
+                                where d.StaffId == model.StaffId
+                                select d.FirstName + " " + d.LastName;
+            var getBuilding = from d in db.Buildings
+                              where d.BuildingId == model.BuildingId
+                              select d.SafeOffice;
+            string email = getCustomerEmail.SingleOrDefault();
+            mail.To.Add(new MailAddress(email));
+            mail.Subject = "Appointment Confirmation - Public Services Cards Online";
+            mail.Body = string.Format("<h1>Appointment Made</h1> <hr>Date: <strong>" + model.DateOfAppointment.ToShortDateString() + "</strong><hr> Time: <strong>" + model.TimeOfAppointment + "</strong><hr> With:<strong> " + getStaffName.SingleOrDefault() + "</strong><hr> Location: <strong>" + getBuilding.SingleOrDefault() + "</strong>");
+            mail.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                try
+                {
+                    smtp.Send(mail);
+                }
+                catch (Exception)
+                {
+                    MailMessage errorMail = new MailMessage();
+                    errorMail.To.Add(new MailAddress("PublicServicesCardsOnline@gmail.com"));
+                    errorMail.Subject = "Register Exception - Public Services Cards Online";
+                    errorMail.Body = string.Format("Exception Has Been Thrown");
+                    smtp.Send(errorMail);
+                }
+            }
         }
     }
 }

@@ -235,23 +235,22 @@ namespace PublicServicesCardsProject.Controllers
         {
             MailMessage mail = new MailMessage();
             mail.To.Add(new MailAddress(model.Email)); 
-            mail.From = new MailAddress("PublicServicesCardsOnline@gmail.com");
-            mail.Subject = "<strong>Register</strong>";
-            mail.Body = string.Format("Welcome " + model.Customers.Name + "Email: " + model.Email + "\nPassword: " + model.Password);
+            mail.Subject = "Register Confirmation - Public Services Cards Online";
+            mail.Body = string.Format("<p>Welcome <strong>" + model.Customers.Name + "</strong></p><hr> <p>Email: <strong>" + model.Email + "</strong></p> <hr> <p>Password: <strong>" + model.Password + "</strong></p>");
             mail.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())
             {
-                var credential = new NetworkCredential
+                try {
+                    smtp.Send(mail);
+                }
+                catch (Exception)
                 {
-                    UserName = "PublicServicesCardsOnline@gmail.com",
-                    Password = "PassWord1'"
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                smtp.Send(mail);
+                    mail.To.Add(new MailAddress("PublicServicesCardsOnline@gmail.com"));
+                    mail.Subject = "Register Exception - Public Services Cards Online";
+                    mail.Body = string.Format("Exception Has Been Thrown");
+                    smtp.Send(mail);
+                }
             }
         }
 
