@@ -1,0 +1,22 @@
+﻿<SolutionConfiguration>
+  <FileVersion>1</FileVersion>
+  <InferProjectReferencesUsingAssemblyNames>false</InferProjectReferencesUsingAssemblyNames>
+  <AllowParallelTestExecution>true</AllowParallelTestExecution>
+  <AllowTestsToRunInParallelWithThemselves>true</AllowTestsToRunInParallelWithThemselves>
+  <FrameworkUtilisationTypeForNUnit>UseDynamicAnalysis</FrameworkUtilisationTypeForNUnit>
+  <FrameworkUtilisationTypeForGallio>UseStaticAnalysis</FrameworkUtilisationTypeForGallio>
+  <FrameworkUtilisationTypeForMSpec>UseStaticAnalysis</FrameworkUtilisationTypeForMSpec>
+  <FrameworkUtilisationTypeForMSTest>UseStaticAnalysis</FrameworkUtilisationTypeForMSTest>
+  <FrameworkUtilisationTypeForXUnit2>UseDynamicAnalysis</FrameworkUtilisationTypeForXUnit2>
+  <NCrunchCacheStoragePath></NCrunchCacheStoragePath>
+  <MetricsExclusionList>
+Controllers\AccountController.cs:PublicServicesCardsProject\PublicServicesCardsProject.csproj
+Controllers\ManageController.cs:PublicServicesCardsProject\PublicServicesCardsProject.csproj
+Global.asax.cs:PublicServicesCardsProject\PublicServicesCardsProject.csproj
+Migrations\201605141014477_InitialCreate.Designer.cs:PublicServicesCardsProject\PublicServicesCardsProject.csproj
+Migrations\Configuration.cs:PublicServicesCardsProject\PublicServicesCardsProject.csproj
+Models\IdentityModels.cs:PublicServicesCardsProject\PublicServicesCardsProject.csproj
+PublicServicesCardsProject\PublicServicesCardsProject.csproj\App_Start
+Startup.cs:PublicServicesCardsProject\PublicServicesCardsProject.csproj
+</MetricsExclusionList>
+</SolutionConfiguration>
