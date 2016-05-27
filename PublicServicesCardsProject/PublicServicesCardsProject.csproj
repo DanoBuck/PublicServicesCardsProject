@@ -259,7 +259,6 @@
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="App_Browsers\qt.browser" />
-    <None Include="Properties\PublishProfiles\PublicServicesCardsOnline - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CustomJavaScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
