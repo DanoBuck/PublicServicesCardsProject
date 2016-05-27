@@ -26,7 +26,7 @@ namespace PublicServicesCardsProject.Controllers
             if(User.IsInRole("Manager") && !String.IsNullOrEmpty(office))
             {
                 appointments = appointments.Where(s => s.Building.SafeOffice.Equals(office));
-                appointments = appointments.OrderBy(x => x.DateOfAppointment);
+                appointments = appointments.OrderBy(x => x.DateOfAppointment).ThenBy(x => x.TimeOfAppointment);
                 ViewBag.office = new SelectList(db.Buildings, "SafeOffice", "SafeOffice");
                 return View(appointments.ToList());
             }
@@ -39,7 +39,7 @@ namespace PublicServicesCardsProject.Controllers
                             where u.Id == id
                             select d;
 
-                query = query.OrderBy(x => x.DateOfAppointment);
+                query = query.OrderBy(x => x.DateOfAppointment).ThenBy(x => x.TimeOfAppointment);
                 appointments = query;
             } 
             else if (!String.IsNullOrEmpty(id) && User.IsInRole("Customer")){
@@ -49,12 +49,12 @@ namespace PublicServicesCardsProject.Controllers
                             where u.Id == id
                             select d;
 
-                query = query.OrderBy(x => x.DateOfAppointment);
+                query = query.OrderBy(x => x.DateOfAppointment).ThenBy(x => x.TimeOfAppointment);
                 appointments = query;
             }
 
             ViewBag.office = new SelectList(db.Buildings, "SafeOffice", "SafeOffice");
-            return View(appointments.ToList().OrderBy(s => s.DateOfAppointment));
+            return View(appointments.ToList());
         }
 
         // GET: Appointments/Details/5
