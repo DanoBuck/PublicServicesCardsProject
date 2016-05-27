@@ -133,13 +133,17 @@ namespace PublicServicesCardsProject.Controllers
             Building building = db.Buildings.Find(id);
             try
             {
+                foreach(var staff in db.Staff.Where(x => x.BuildingId == id))
+                {
+                    staff.BuildingId = 2;
+                }
                 db.Buildings.Remove(building);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception d)
             {
-                ModelState.AddModelError("Error deleting data", "");
+                TempData["Error"] = "Cannot delete this building as all staff within the building will be deleted!";
             }
             return View(building);
         }
