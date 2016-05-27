@@ -94,7 +94,7 @@ namespace PublicServicesCardsProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StaffId,FirstName,LastName,DateOfBirth,EmailAddress,PPSN,Salary,DeskNumber,BuildingId")] Staff staff)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && CheckDeskNumber(staff.DeskNumber, staff.BuildingId))
             {
                 try {
                     db.Entry(staff).State = EntityState.Modified;
@@ -105,6 +105,11 @@ namespace PublicServicesCardsProject.Controllers
                 {
                     ModelState.AddModelError("Error editing data", "");
                 }
+            }
+            else
+            {
+                var building = db.Buildings.Where(x => x.BuildingId == staff.BuildingId).Select( x => x.SafeOffice).FirstOrDefault();
+                TempData["Error"] = "Someone sits at this desk: " + staff.DeskNumber + " in: " + building;
             }
             ViewBag.BuildingId = new SelectList(db.Buildings, "BuildingId", "SafeOffice", staff.BuildingId);
             return View(staff);
@@ -152,6 +157,25 @@ namespace PublicServicesCardsProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public bool CheckDeskNumber(int? deskNumber, int? buildingId)
+        {
+            bool returnValue = false;
+            var query = from d in db.Staff
+                        where d.DeskNumber == deskNumber
+                        where d.BuildingId == buildingId
+                        select d;
+
+            if(query.Count() == 0)
+            {
+                returnValue = true;
+            }
+            else
+            {
+                returnValue = false;
+            }
+            return returnValue;
         }
     }
 }

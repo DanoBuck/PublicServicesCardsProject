@@ -176,7 +176,7 @@ namespace PublicServicesCardsProject.Controllers
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        SendEmail(model);
+                        SendEmailCustomer(model);
                         UserManager.AddToRole(user.Id, "Customer"); // Now Users Registering are Customers by Default
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -191,47 +191,75 @@ namespace PublicServicesCardsProject.Controllers
                 }
                 else if(User.IsInRole("Manager"))
                 {
-                    var user = new ApplicationUser
+                    if (!CheckDeskNumber(model.Staff.DeskNumber, model.Staff.BuildingId))
                     {
-                        UserName = model.Email,
-                        Email = model.Email,
-                        SecurityStamp = Guid.NewGuid().ToString(),
-                        Staff = new Staff
-                        {
-                            PPSN = model.Staff.PPSN,
-                            FirstName = model.Staff.FirstName,
-                            LastName = model.Staff.LastName,
-                            EmailAddress = model.Email,
-                            DateOfBirth = model.Staff.DateOfBirth,
-                            Salary = model.Staff.Salary,
-                            DeskNumber = model.Staff.DeskNumber,
-                            BuildingId = 1
-                        }
-                    };
-                    user.StaffId = user.Staff.StaffId;
-                    var result = await UserManager.CreateAsync(user, model.Password);
-                    if (result.Succeeded)
-                    {
-                        UserManager.AddToRole(user.Id, "Staff"); // Now Managers Can Register Their Staff
-                        SendEmail(model);
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                        return RedirectToAction("Index", "Staff");
+                        var building = db.Buildings.Where(x => x.BuildingId == model.Staff.BuildingId).Select(x => x.SafeOffice).FirstOrDefault();
+                        TempData["Error"] = "Someone sits at this desk: " + model.Staff.DeskNumber + " in: " + building;
+                        return RedirectToAction("Create", "Staff");
                     }
-                    AddErrors(result);
+                    else {
+                        var user = new ApplicationUser
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            SecurityStamp = Guid.NewGuid().ToString(),
+                            Staff = new Staff
+                            {
+                                PPSN = model.Staff.PPSN,
+                                FirstName = model.Staff.FirstName,
+                                LastName = model.Staff.LastName,
+                                EmailAddress = model.Email,
+                                DateOfBirth = model.Staff.DateOfBirth,
+                                Salary = model.Staff.Salary,
+                                DeskNumber = model.Staff.DeskNumber,
+                                BuildingId = 1
+                            }
+                        };
+                        user.StaffId = user.Staff.StaffId;
+                        var result = await UserManager.CreateAsync(user, model.Password);
+                        if (result.Succeeded)
+                        {
+                            UserManager.AddToRole(user.Id, "Staff"); // Now Managers Can Register Their Staff
+                            SendEmailStaff(model);
+                            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                            // Send an email with this link
+                            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                            return RedirectToAction("Index", "Staff");
+                        }
+                        AddErrors(result);
+                    }
                 }
             }
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
+        public bool CheckDeskNumber(int? deskNumber, int? buildingId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            bool returnValue = false;
+            var query = from d in db.Staff
+                        where d.DeskNumber == deskNumber
+                        where d.BuildingId == buildingId
+                        select d;
+
+            if (query.Count() == 0)
+            {
+                returnValue = true;
+            }
+            else
+            {
+                returnValue = false;
+            }
+            return returnValue;
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public void SendEmail(RegisterViewModel model)
+        public void SendEmailCustomer(RegisterViewModel model)
         {
             MailMessage mail = new MailMessage();
             mail.To.Add(new MailAddress(model.Email)); 
@@ -242,6 +270,33 @@ namespace PublicServicesCardsProject.Controllers
             using (var smtp = new SmtpClient())
             {
                 try {
+                    smtp.Send(mail);
+                }
+                catch (Exception)
+                {
+                    mail.To.Add(new MailAddress("PublicServicesCardsOnline@gmail.com"));
+                    mail.Subject = "Register Exception - Public Services Cards Online";
+                    mail.Body = string.Format("Exception Has Been Thrown");
+                    smtp.Send(mail);
+                }
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public void SendEmailStaff(RegisterViewModel model)
+        {
+            MailMessage mail = new MailMessage();
+            mail.To.Add(new MailAddress(model.Email));
+            mail.Subject = "Register Confirmation - Public Services Cards Online";
+            mail.Body = string.Format("<h1>Welcome " + model.Staff.Name + "</h1><hr> <p>Email: <strong>" + model.Email + "</strong></p> <hr> <p>Password: <strong>" + model.Password + "</strong></p>");
+            mail.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                try
+                {
                     smtp.Send(mail);
                 }
                 catch (Exception)

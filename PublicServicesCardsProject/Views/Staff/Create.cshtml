@@ -12,6 +12,10 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+        @if (TempData["Error"] != null)
+                {
+            <p style="color:red">@TempData["Error"]</p>
+        }
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -23,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Staff.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Staff.FirstName, "First Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Staff.FirstName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Staff.FirstName, "", new { @class = "text-danger" })
@@ -31,7 +35,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Staff.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Staff.LastName, "Last Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Staff.LastName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Staff.LastName, "", new { @class = "text-danger" })
@@ -39,7 +43,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Staff.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Staff.DateOfBirth, "Ddate Of Birth", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Staff.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Staff.DateOfBirth, "", new { @class = "text-danger" })
@@ -55,7 +59,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Staff.DeskNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Staff.DeskNumber, "Desk Number", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Staff.DeskNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Staff.DeskNumber, "", new { @class = "text-danger" })
@@ -63,7 +67,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Staff.BuildingId, "BuildingId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Staff.BuildingId, "Office", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("BuildingId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Staff.BuildingId, "", new { @class = "text-danger" })

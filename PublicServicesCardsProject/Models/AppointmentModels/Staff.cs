@@ -22,7 +22,7 @@ namespace PublicServicesCardsProject.Models
         [Required]
         public string PPSN { get; set; }
         public double Salary { get; set; }
-        [Range(0, 25)]
+        [Range(1, 25)]
         [Required]
         public int DeskNumber { get; set; }
         public int BuildingId { get; set; }
