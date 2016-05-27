@@ -65,7 +65,7 @@ namespace PublicServicesCardsProject.Migrations
                    LastName = "Buckley",
                    DateOfBirth = new DateTime(1995,1,9),
                    EmailAddress = "DaniielBuckleyTy3@gmail.com",
-                   PPSN = "1234567Q",
+                   PPSN = "1234567A",
                    Salary = 45000,
                    DeskNumber = 1,
                    BuildingId = 1 // Gandon
@@ -77,7 +77,7 @@ namespace PublicServicesCardsProject.Migrations
                    LastName = "O'Hegarthy",
                    DateOfBirth = new DateTime(1990,6,12),
                    EmailAddress = "CecilOHegarthy@gmail.com",
-                   PPSN = "1234567A",
+                   PPSN = "1234567B",
                    Salary = 49000,
                    DeskNumber = 2,
                    BuildingId = 1 // Gandon
@@ -89,7 +89,7 @@ namespace PublicServicesCardsProject.Migrations
                    LastName = "Burns",
                    DateOfBirth = new DateTime(1965,5,1),
                    EmailAddress = "FredaBurns@outlook.com",
-                   PPSN = "1234567B",
+                   PPSN = "1234567C",
                    Salary = 45000,
                    DeskNumber = 1,
                    BuildingId = 2 // Tallaght PSC
@@ -100,8 +100,8 @@ namespace PublicServicesCardsProject.Migrations
                    FirstName = "Threasa",
                    LastName = "O'Reilly",
                    DateOfBirth = new DateTime(1980,12,6),
-                   EmailAddress = "ThreasaO'Reilly@live.ie",
-                   PPSN = "1234567C",
+                   EmailAddress = "ThreasaOReilly@live.ie",
+                   PPSN = "1234567D",
                    Salary = 49000,
                    DeskNumber = 2,
                    BuildingId = 2 // Tallaght PSC
@@ -113,7 +113,7 @@ namespace PublicServicesCardsProject.Migrations
                    LastName = "Masterson",
                    DateOfBirth = new DateTime(1955,5,1),
                    EmailAddress = "MillyMasterson@outlook.com",
-                   PPSN = "123456KA",
+                   PPSN = "1234567E",
                    Salary = 45000,
                    DeskNumber = 1,
                    BuildingId = 3 // Swords
@@ -124,8 +124,8 @@ namespace PublicServicesCardsProject.Migrations
                    FirstName = "Billy",
                    LastName = "O'Byrne",
                    DateOfBirth = new DateTime(1979,12,6),
-                   EmailAddress = "BillyO'Byrne@live.ie",
-                   PPSN = "123456BA",
+                   EmailAddress = "BillyOByrne@live.ie",
+                   PPSN = "1234567F",
                    Salary = 49000,
                    DeskNumber = 2,
                    BuildingId = 3 // Swords
@@ -146,7 +146,7 @@ namespace PublicServicesCardsProject.Migrations
                     LastName = "Buckley",
                     DateOfBirth = new DateTime(1996, 12, 2),
                     EmailAddress = "Adam@gmail.com",
-                    PPSN = "1234567S",
+                    PPSN = "1234567G",
                     CivilStatus = "Single"
                 },
                 new Customer
@@ -156,7 +156,7 @@ namespace PublicServicesCardsProject.Migrations
                     LastName = "Chapington",
                     DateOfBirth = new DateTime(1987,5,12),
                     EmailAddress = "Amanda@gmail.com",
-                    PPSN = "1234567A",
+                    PPSN = "1234567H",
                     CivilStatus = "Married"
                 },
                 new Customer
@@ -166,7 +166,7 @@ namespace PublicServicesCardsProject.Migrations
                     LastName = "Philipson",
                     DateOfBirth = new DateTime(1916, 3, 30),
                     EmailAddress = "Phil@gmail.com",
-                    PPSN = "1234567S",
+                    PPSN = "1234567I",
                     CivilStatus = "Single"
                 },
                 new Customer
@@ -176,7 +176,7 @@ namespace PublicServicesCardsProject.Migrations
                     LastName = "Donaldson",
                     DateOfBirth = new DateTime(1982,2,10),
                     EmailAddress = "ImeldaDonaldson@gmail.com",
-                    PPSN = "1234567L",
+                    PPSN = "1234567J",
                     CivilStatus = "Married"
                 },
                 new Customer
@@ -186,7 +186,7 @@ namespace PublicServicesCardsProject.Migrations
                     LastName = "Furey",
                     DateOfBirth = new DateTime(1920, 3, 30),
                     EmailAddress = "FinbarrFurey@gmail.com",
-                    PPSN = "1234567H",
+                    PPSN = "1234567K",
                     CivilStatus = "Married"
                 },
                 new Customer
@@ -196,8 +196,78 @@ namespace PublicServicesCardsProject.Migrations
                     LastName = "Dogson",
                     DateOfBirth = new DateTime(1973,1,15),
                     EmailAddress = "Dogson@gmail.com",
-                    PPSN = "1234567Q",
+                    PPSN = "1234567L",
                     CivilStatus = "Married"
+                },
+                new Customer
+                {
+                    CustomerId = 7,
+                    FirstName = "Ellamae",
+                    LastName = "Dahl",
+                    DateOfBirth = new DateTime(1972,1,15),
+                    EmailAddress = "EllamaeDahl@gmail.ie",
+                    PPSN = "1234567M",
+                    CivilStatus = "Single"
+                },
+                new Customer
+                {
+                    CustomerId = 8,
+                    FirstName = "Nelle",
+                    LastName = "Pace",
+                    DateOfBirth = new DateTime(1977,1,15),
+                    EmailAddress = "NellePace@gmail.ie",
+                    PPSN = "1234567N",
+                    CivilStatus = "Married"
+                },
+                new Customer
+                {
+                    CustomerId = 9,
+                    FirstName = "Lawrence",
+                    LastName = "Hunter",
+                    DateOfBirth = new DateTime(1995,1,15),
+                    EmailAddress = "LawrenceHunter@gmail.ie",
+                    PPSN = "1234567O",
+                    CivilStatus = "Single"
+                },
+                new Customer
+                {
+                    CustomerId = 10,
+                    FirstName = "Scotty",
+                    LastName = "Coldren",
+                    DateOfBirth = new DateTime(1991,1,15),
+                    EmailAddress = "ScottyColdren@gmail.ie",
+                    PPSN = "1234567Z",
+                    CivilStatus = "Single"
+                },
+                new Customer
+                {
+                    CustomerId = 11,
+                    FirstName = "Pamela",
+                    LastName = "O'Donaghue",
+                    DateOfBirth = new DateTime(1995,1,15),
+                    EmailAddress = "PamelaODonaghue@gmail.ie",
+                    PPSN = "1234567P",
+                    CivilStatus = "Married"
+                },
+                new Customer
+                {
+                    CustomerId = 12,
+                    FirstName = "Tiffanie",
+                    LastName = "Romain",
+                    DateOfBirth = new DateTime(1995,1,12),
+                    EmailAddress = "TiffanieRomain@gmail.ie",
+                    PPSN = "1234567Q",
+                    CivilStatus = "Single"
+                },
+                new Customer
+                {
+                    CustomerId = 13,
+                    FirstName = "Wilfred",
+                    LastName = "Brayboy",
+                    DateOfBirth = new DateTime(1993,1,12),
+                    EmailAddress = "WilfredBrayboy@gmail.ie",
+                    PPSN = "1234567R",
+                    CivilStatus = "Single"
                 }
             };
             customers.ForEach(c => context.Customers.AddOrUpdate(c));
@@ -212,8 +282,56 @@ namespace PublicServicesCardsProject.Migrations
                     BuildingId = 1, // Gandon
                     StaffId = 1, // Daniel Buckley
                     CustomerId = 3, // Adam Buckley,
-                    DateOfAppointment = DateTime.Today.Date,
-                    TimeOfAppointment = "9:00"
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "12:00"
+                },
+                new Appointment
+                {
+                    BuildingId = 1, // Gandon
+                    StaffId = 1, // Daniel
+                    CustomerId = 7, // Amanda Chapington,
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "11:00"
+                },
+                new Appointment
+                {
+                    BuildingId = 1, // Gandon
+                    StaffId = 1, // Daniel
+                    CustomerId = 8, // Amanda Chapington,
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "09:00"
+                },
+                new Appointment
+                {
+                    BuildingId = 1, // Gandon
+                    StaffId = 1, // Daniel
+                    CustomerId = 8, // Amanda Chapington,
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "13:00"
+                },
+                new Appointment
+                {
+                    BuildingId = 1, // Gandon
+                    StaffId = 2, // Daniel
+                    CustomerId = 9, // Amanda Chapington,
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "14:00"
+                },
+                new Appointment
+                {
+                    BuildingId = 1, // Gandon
+                    StaffId = 1, // Daniel
+                    CustomerId = 10, // Amanda Chapington,
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "15:00"
+                },
+                new Appointment
+                {
+                    BuildingId = 1, // Gandon
+                    StaffId = 1, // Daniel
+                    CustomerId = 11, // Amanda Chapington,
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "16:00"
                 },
                 new Appointment
                 {
@@ -222,6 +340,22 @@ namespace PublicServicesCardsProject.Migrations
                     CustomerId = 4, // Amanda Chapington,
                     DateOfAppointment = DateTime.Today.Date,
                     TimeOfAppointment = "10:00"
+                },
+                new Appointment
+                {
+                    BuildingId = 1, // Gandon
+                    StaffId = 2, // Cecil
+                    CustomerId = 12, // Amanda Chapington,
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "09:00"
+                },
+                new Appointment
+                {
+                    BuildingId = 1, // Gandon
+                    StaffId = 2, // Cecil
+                    CustomerId = 13,
+                    DateOfAppointment = DateTime.Today.AddMonths(1),
+                    TimeOfAppointment = "14:00"
                 },
                 new Appointment
                 {
