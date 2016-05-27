@@ -143,7 +143,7 @@ namespace PublicServicesCardsProject.Controllers
             }
             catch (Exception d)
             {
-                TempData["Error"] = "Cannot delete this building as all staff within the building will be deleted!";
+                TempData["Error"] = "Cannot delete this building as all staff within the building will be deleted!" + d;
             }
             return View(building);
         }

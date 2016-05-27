@@ -241,8 +241,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\Bird.jpg" />
     <Content Include="Images\dsp.jpg" />
+    <Content Include="Images\ERD.jpg" />
     <Content Include="Images\Favicon.jpg" />
     <Content Include="Images\online-booking.jpg" />
     <Content Include="Images\Psc.jpg" />
@@ -259,6 +259,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="App_Browsers\qt.browser" />
+    <None Include="Properties\PublishProfiles\PublicServicesCardsOnline - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CustomJavaScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

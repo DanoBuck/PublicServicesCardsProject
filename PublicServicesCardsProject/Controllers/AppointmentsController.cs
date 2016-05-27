@@ -54,7 +54,7 @@ namespace PublicServicesCardsProject.Controllers
             }
 
             ViewBag.office = new SelectList(db.Buildings, "SafeOffice", "SafeOffice");
-            return View(appointments.ToList());
+            return View(appointments.ToList().OrderBy(x => x.DateOfAppointment).ThenBy(x => x.TimeOfAppointment));
         }
 
         // GET: Appointments/Details/5
