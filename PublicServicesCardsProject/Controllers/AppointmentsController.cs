@@ -18,7 +18,7 @@ namespace PublicServicesCardsProject.Controllers
 
         // GET: Appointments
         public ActionResult Index(string office)
-        {
+        { 
             var id = User.Identity.GetUserId();
 
             var appointments = from d in db.Appointments
@@ -97,7 +97,7 @@ namespace PublicServicesCardsProject.Controllers
             try {
                 if (ModelState.IsValid)
                 {
-                    if (CheckAvailabityOfTimeAndDateIsNotAlreadyBooked(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment))
+                    if (CheckAvailabityOfTimeAndDateIsNotAlreadyBooked(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment) && !CheckWeekends(appointment.DateOfAppointment))
                     {
                         appointment.CustomerId = currentUser.CustomerId.Value;
                         db.Appointments.Add(appointment);
@@ -108,6 +108,10 @@ namespace PublicServicesCardsProject.Controllers
                     else if (!CheckDateIsCorrect(appointment.DateOfAppointment))
                     {
                         TempData["Error"] = "Appointments cannot be booked for dates before " + DateTime.Today.ToShortDateString();
+                    }
+                    else if (CheckWeekends(appointment.DateOfAppointment))
+                    {
+                        TempData["Error"] = "Appointments cannot be booked for Saturdays or Sundays!";
                     }
                     else
                     {
@@ -158,7 +162,7 @@ namespace PublicServicesCardsProject.Controllers
             var currentUser = manager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
-                if (CheckAvailabityOfTimeAndDateIsNotAlreadyBooked(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment))
+                if (CheckAvailabityOfTimeAndDateIsNotAlreadyBooked(appointment) && CheckDateIsCorrect(appointment.DateOfAppointment) && !CheckWeekends(appointment.DateOfAppointment))
                 {
                     try {
                         appointment.CustomerId = currentUser.CustomerId.Value;
@@ -174,6 +178,10 @@ namespace PublicServicesCardsProject.Controllers
                 else if (!CheckDateIsCorrect(appointment.DateOfAppointment))
                 {
                     TempData["Error"] = "Appointments cannot be booked for dates before " + DateTime.Today.ToShortDateString();
+                }
+                else if (CheckWeekends(appointment.DateOfAppointment))
+                {
+                    TempData["Error"] = "Appointments cannot be booked for Saturdays or Sundays!";
                 }
                 else
                 {
@@ -327,6 +335,20 @@ namespace PublicServicesCardsProject.Controllers
                     smtp.Send(errorMail);
                 }
             }
+        }
+
+        public bool CheckWeekends(DateTime? date)
+        {
+            bool returnValue = false;
+            if (date.Value.DayOfWeek.Equals(DayOfWeek.Saturday) || date.Value.DayOfWeek.Equals(DayOfWeek.Sunday))
+            {
+                returnValue = true;
+            }
+            else
+            {
+                returnValue = false;
+            }
+            return returnValue;
         }
     }
 }
