@@ -323,6 +323,7 @@
     <Content Include="Views\Appointments\Index.cshtml" />
     <Content Include="Views\Account\UsersAndRoles.cshtml" />
     <Content Include="Views\Home\PostalApplication.cshtml" />
+    <Content Include="Views\Account\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

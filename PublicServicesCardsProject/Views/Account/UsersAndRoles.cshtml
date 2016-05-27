@@ -24,9 +24,7 @@
                 @Html.DisplayFor(modelItem => item.Roles)
             </td>
             <td>
-                @*@Html.ActionLink(" Edit", "Edit", new { email = item.Roles }, htmlAttributes: new { @class = " fa fa-edit" }) |*@
-                @*@Html.ActionLink(" Details", "Details", new { id = item.BuildingId }, htmlAttributes: new { @class = " fa fa-info " }) |
-                @Html.ActionLink(" Delete", "Delete", new { id = item.BuildingId }, htmlAttributes: new { @class = " fa fa-trash-o " })*@
+                @Html.ActionLink(" EditUser", "EditUser", new {email = item.EmailAddress}, htmlAttributes: new { @class = " fa fa-edit" })
             </td>
         </tr>
     }

@@ -513,7 +513,6 @@ namespace PublicServicesCardsProject.Controllers
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            //Get all the usernames
             foreach (var user in userStore.Users)
             {
                 var r = new UserRoleViewModel
@@ -522,12 +521,88 @@ namespace PublicServicesCardsProject.Controllers
                 };
                 userRoles.Add(r);
             }
-            //Get all the Roles for our users
             foreach (var user in userRoles)
             {
                 user.Roles = userManager.GetRoles(userStore.Users.First(s => s.Email == user.EmailAddress).Id);
             }
             return View(userRoles);
+        }
+
+        public ActionResult EditUser(string email)
+        {
+            var userRoles = new List<UserRoleViewModel>();
+            ApplicationDbContext db = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(db);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            ApplicationUser user = db.Users.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            ViewBag.newRole = db.Roles.OrderBy(x => x.Name).ToList().Select(y => new SelectListItem { Value = y.Name.ToString(), Text = y.Name }).ToList(); ;
+            ViewBag.Email = email;
+            ViewBag.oldRole = userManager.GetRoles(user.Id).FirstOrDefault();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser(string email, string newRole, string oldRole)
+        {
+            if (newRole.Equals(oldRole))
+            {
+                return RedirectToAction("UsersAndRoles");
+            }
+
+            var userRoles = new List<UserRoleViewModel>();
+            ApplicationDbContext db = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(db);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+
+            ApplicationUser user = db.Users.Where(x => x.Email.Equals(email)).FirstOrDefault();
+
+            if (!String.IsNullOrEmpty(oldRole) && (!CheckCustomerRole(oldRole) && !CheckStaffOrManagerRole(oldRole, newRole)))
+            {
+                userManager.RemoveFromRole(user.Id, oldRole);
+                userManager.AddToRole(user.Id, newRole);
+                if (User.Identity.GetUserId() == user.Id)
+                {
+                    LogOff();
+                }
+                return RedirectToAction("UsersAndRoles");
+            }
+            else if(CheckCustomerRole(oldRole))
+            {
+                TempData["Error"] = "Users in the customer role must stay in the customer role!";
+            }
+            else if (CheckStaffOrManagerRole(oldRole, newRole))
+            {
+                TempData["Error"] = "Users in the manager role or the staff role cannot move to the customer role!";
+            }
+            ViewBag.newRole = db.Roles.OrderBy(x => x.Name).ToList().Select(y => new SelectListItem { Value = y.Name.ToString(), Text = y.Name }).ToList(); ;
+            return View(userRoles);
+        }
+
+        public bool CheckCustomerRole(string role)
+        {
+            if (role.Equals("Customer"))
+            {
+                return true; // can't delete from role and change to another
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool CheckStaffOrManagerRole(string role, string newRole)
+        {
+            if ((role.Equals("Staff") || role.Equals("Manager")) && (newRole.Equals("Customer")))
+            {
+                return true; // can't delete from role and change to customer
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #region Helpers

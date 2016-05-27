@@ -73,6 +73,7 @@ namespace PublicServicesCardsProject.Controllers
         }
 
         // GET: Appointments/Create
+        [Authorize(Roles = "Customer")]
         public ActionResult Create(int? id)
         {
             var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
@@ -88,6 +89,7 @@ namespace PublicServicesCardsProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Customer")]
         public ActionResult Create([Bind(Include = "AppointmentId,BuildingId,StaffId,CustomerId,DateOfAppointment,TimeOfAppointment")] Appointment appointment)
         {
             var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
@@ -149,6 +151,7 @@ namespace PublicServicesCardsProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Customer")]
         public ActionResult Edit([Bind(Include = "AppointmentId,BuildingId,StaffId,CustomerId,DateOfAppointment,TimeOfAppointment")] Appointment appointment)
         {
             var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
